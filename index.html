@@ -1341,88 +1341,239 @@
             font-weight: 500;
         }
 
-        /* Simulated UI inside preview cards */
+        /* Simulated UI inside preview cards - Redesigned for High Fidelity */
         .sim-ui {
             width: 100%;
             height: 100%;
-            padding: 16px;
+            padding: 0;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            background: #0d1117;
+            position: relative;
         }
 
-        .sim-toolbar {
+        .sim-titlebar {
+            height: 32px;
+            background: rgba(255,255,255,0.03);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .sim-window-tools {
             display: flex;
             gap: 6px;
-            margin-bottom: 8px;
         }
 
-        .sim-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
+        .sim-window-label {
+            font-size: 0.65rem;
+            color: var(--text-tertiary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
-
-        .sim-dot.r { background: #ef4444; }
-        .sim-dot.y { background: #f59e0b; }
-        .sim-dot.g { background: #22c55e; }
 
         .sim-sidebar {
             position: absolute;
             left: 0;
-            top: 0;
+            top: 32px;
             bottom: 0;
-            width: 48px;
-            background: rgba(0,0,0,0.3);
+            width: 54px;
+            background: rgba(0,0,0,0.2);
+            border-right: 1px solid var(--border-subtle);
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 32px;
-            gap: 16px;
+            padding-top: 16px;
+            gap: 12px;
         }
 
         .sim-sidebar-icon {
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
-            background: rgba(255,255,255,0.08);
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-fast);
         }
 
         .sim-sidebar-icon.active {
-            background: rgba(59,130,246,0.3);
+            background: var(--accent-primary-glow);
+            border: 1px solid rgba(59,130,246,0.2);
+            color: var(--accent-primary);
         }
 
-        .sim-content {
-            margin-left: 48px;
-            padding: 12px;
+        .sim-sidebar-icon svg {
+            width: 14px;
+            height: 14px;
+            opacity: 0.7;
+        }
+
+        .sim-main {
+            margin-left: 54px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            height: 100%;
+            gap: 14px;
+            flex: 1;
         }
 
-        .sim-row {
+        .sim-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .sim-btn-group {
             display: flex;
             gap: 6px;
-            align-items: center;
         }
 
-        .sim-block {
+        .sim-btn-mock {
+            height: 24px;
+            padding: 0 10px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-subtle);
             border-radius: 4px;
-            background: rgba(255,255,255,0.06);
+            font-size: 0.6rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
-        .sim-block.accent {
-            background: rgba(59,130,246,0.15);
+        .sim-btn-mock.blue { background: var(--accent-primary); color: #fff; border: none; }
+
+        .sim-list-view {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            overflow: hidden;
         }
 
-        .sim-block.emerald {
-            background: rgba(16,185,129,0.15);
+        .sim-list-header {
+            height: 24px;
+            background: rgba(255,255,255,0.03);
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            align-items: center;
+            padding: 0 12px;
+            font-size: 0.6rem;
+            color: var(--text-tertiary);
+            border-bottom: 1px solid var(--border-subtle);
         }
 
-        .sim-block.amber {
-            background: rgba(245,158,11,0.15);
+        .sim-list-row {
+            height: 32px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            align-items: center;
+            padding: 0 12px;
+            font-size: 0.65rem;
+            border-bottom: 1px solid var(--border-subtle);
         }
+
+        .sim-list-row:last-child { border-bottom: none; }
+
+        .sim-file-name { color: var(--text-primary); display: flex; align-items: center; gap: 6px; }
+        .sim-file-icon { width: 12px; height: 12px; opacity: 0.6; }
+
+        .sim-status-pill {
+            display: inline-flex;
+            padding: 2px 6px;
+            border-radius: 100px;
+            font-size: 0.55rem;
+            font-weight: 600;
+        }
+
+        .sim-status-pill.blue { background: rgba(59,130,246,0.1); color: var(--accent-primary); }
+        .sim-status-pill.green { background: rgba(16,185,129,0.1); color: var(--accent-emerald); }
+
+        .sim-progress-container {
+            margin-top: auto;
+            padding: 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .sim-progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.6rem;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .sim-progress-bar {
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .sim-progress-fill {
+            height: 100%;
+            background: var(--accent-primary);
+            width: 75%;
+            border-radius: 2px;
+        }
+
+        .sim-grid-mock {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .sim-grid-cell {
+            height: 40px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+        }
+
+        .sim-excel-view {
+            border: 1px solid #1e293b;
+            border-radius: 4px;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sim-excel-header {
+            height: 20px;
+            background: #1e293b;
+            display: grid;
+            grid-template-columns: 30px 1fr 1fr 1fr;
+            gap: 1px;
+        }
+
+        .sim-excel-cell {
+            background: #0f172a;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 6px;
+            font-size: 0.55rem;
+            color: #94a3b8;
+        }
+
+        .sim-excel-row {
+            height: 20px;
+            display: grid;
+            grid-template-columns: 30px 1fr 1fr 1fr;
+            gap: 1px;
+            background: #1e293b;
+        }
+
+        .sim-excel-row .sim-excel-cell:first-child { background: #1e293b; justify-content: center; }
+        .sim-excel-row .sim-excel-cell { background: #0f172a; color: #cbd5e1; }
+        .sim-excel-row.active .sim-excel-cell { background: rgba(59,130,246,0.1); }
 
         .preview-info {
             padding: 20px 24px;
@@ -2001,9 +2152,9 @@
                 </div>
 
                 <div class="download-secondary-actions">
-                    <a href="https://github.com/marutitechsolutions/ca-office-utility/releases" class="download-sec-btn" target="_blank">Release Notes</a>
+                    <a href="release-notes.html" class="download-sec-btn">Release Notes</a>
                     <a href="docs/install-guide.html" class="download-sec-btn">Installation Guide</a>
-                    <a href="https://github.com/marutitechsolutions/ca-office-utility/releases" class="download-sec-btn" target="_blank">All Releases</a>
+                    <a href="release-notes.html" class="download-sec-btn">All Releases</a>
                 </div>
             </div>
         </div>
@@ -2381,14 +2532,6 @@
                         <div class="value-point-title">Windows Desktop Application</div>
                         <div class="value-point-desc">Native Windows utility — runs without browser, internet, or subscriptions.</div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    <!-- ================================================================
          SECTION 9: PRODUCT PREVIEW GALLERY
          ================================================================ -->
     <section class="section" id="preview">
@@ -2403,170 +2546,176 @@
             </div>
 
             <div class="preview-grid">
-                <!-- PDF Utility Preview -->
+                <!-- PDF Engineering Module Preview -->
                 <div class="preview-card animate-on-scroll">
                     <div class="preview-image">
                         <div class="sim-ui">
-                            <div class="sim-toolbar">
-                                <div class="sim-dot r"></div>
-                                <div class="sim-dot y"></div>
-                                <div class="sim-dot g"></div>
+                            <div class="sim-titlebar">
+                                <span class="sim-window-label">PDF Engineering Module</span>
+                                <div class="sim-window-tools">
+                                    <div class="sim-dot r"></div><div class="sim-dot y"></div><div class="sim-dot g"></div>
+                                </div>
                             </div>
                             <div class="sim-sidebar">
-                                <div class="sim-sidebar-icon active"></div>
-                                <div class="sim-sidebar-icon"></div>
-                                <div class="sim-sidebar-icon"></div>
-                                <div class="sim-sidebar-icon"></div>
+                                <div class="sim-sidebar-icon active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg></div>
+                                <div class="sim-sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
                             </div>
-                            <div class="sim-content">
-                                <div class="sim-row"><div class="sim-block accent" style="width:60%;height:16px;"></div></div>
-                                <div class="sim-row"><div class="sim-block" style="width:100%;height:8px;"></div></div>
-                                <div class="sim-row" style="gap:8px;margin-top:8px;">
-                                    <div class="sim-block accent" style="width:80px;height:28px;border-radius:6px;"></div>
-                                    <div class="sim-block" style="width:80px;height:28px;border-radius:6px;"></div>
-                                    <div class="sim-block" style="width:80px;height:28px;border-radius:6px;"></div>
+                            <div class="sim-main">
+                                <div class="sim-header-row">
+                                    <div class="sim-btn-group">
+                                        <div class="sim-btn-mock blue">Add Files</div>
+                                        <div class="sim-btn-mock">Merge All</div>
+                                    </div>
+                                    <div class="sim-btn-mock">Options</div>
                                 </div>
-                                <div style="flex:1;display:flex;flex-direction:column;gap:4px;margin-top:8px;">
-                                    <div class="sim-block" style="width:100%;height:24px;"></div>
-                                    <div class="sim-block" style="width:100%;height:24px;"></div>
-                                    <div class="sim-block" style="width:100%;height:24px;"></div>
-                                    <div class="sim-block" style="width:100%;height:24px;"></div>
+                                <div class="sim-list-view">
+                                    <div class="sim-list-header"><span>File Name</span><span>Size</span><span>Pages</span></div>
+                                    <div class="sim-list-row">
+                                        <span class="sim-file-name">client_audit_data.pdf</span><span>4.2 MB</span><span>12</span>
+                                    </div>
+                                    <div class="sim-list-row">
+                                        <span class="sim-file-name">invoice_set_001.pdf</span><span>1.8 MB</span><span>45</span>
+                                    </div>
+                                    <div class="sim-list-row">
+                                        <span class="sim-file-name">tax_returns_2024.pdf</span><span>2.5 MB</span><span>8</span>
+                                    </div>
                                 </div>
-                                <div class="sim-row" style="margin-top:auto;">
-                                    <div class="sim-block accent" style="width:120px;height:32px;border-radius:6px;"></div>
+                                <div class="sim-progress-container">
+                                    <div class="sim-progress-label"><span>Merging Files...</span><span>82%</span></div>
+                                    <div class="sim-progress-bar"><div class="sim-progress-fill" style="width: 82%"></div></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="preview-info">
-                        <div class="preview-module-name">PDF Engineering Module</div>
-                        <div class="preview-module-desc">Merge, split, compress, and manage documents</div>
+                        <h4 class="preview-module-name">PDF Engineering Module</h4>
+                        <p class="preview-module-desc">Merge 40+ PDFs into one or split bulk documents in seconds.</p>
                     </div>
                 </div>
 
-                <!-- Invoice Parser Preview -->
+                <!-- Smart Invoice Parser Preview -->
                 <div class="preview-card animate-on-scroll">
                     <div class="preview-image">
                         <div class="sim-ui">
-                            <div class="sim-toolbar">
-                                <div class="sim-dot r"></div>
-                                <div class="sim-dot y"></div>
-                                <div class="sim-dot g"></div>
+                            <div class="sim-titlebar">
+                                <span class="sim-window-label">Smart Invoice Parser</span>
+                                <div class="sim-window-tools">
+                                    <div class="sim-dot r"></div><div class="sim-dot y"></div><div class="sim-dot g"></div>
+                                </div>
                             </div>
                             <div class="sim-sidebar">
-                                <div class="sim-sidebar-icon"></div>
-                                <div class="sim-sidebar-icon active"></div>
-                                <div class="sim-sidebar-icon"></div>
-                                <div class="sim-sidebar-icon"></div>
+                                <div class="sim-sidebar-icon active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div>
                             </div>
-                            <div class="sim-content">
-                                <div class="sim-row"><div class="sim-block amber" style="width:50%;height:16px;"></div></div>
-                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1;margin-top:12px;">
-                                    <div style="display:flex;flex-direction:column;gap:4px;">
-                                        <div class="sim-block" style="width:100%;height:60%;border-radius:6px;"></div>
-                                        <div class="sim-block amber" style="width:60%;height:12px;"></div>
+                            <div class="sim-main">
+                                <div class="sim-header-row">
+                                    <div class="sim-btn-mock blue">Extract Content</div>
+                                    <div class="sim-status-pill blue">Processing...</div>
+                                </div>
+                                <div class="sim-excel-view">
+                                    <div class="sim-excel-header">
+                                        <div class="sim-excel-cell">#</div>
+                                        <div class="sim-excel-cell">Inv No</div>
+                                        <div class="sim-excel-cell">Date</div>
+                                        <div class="sim-excel-cell">Total</div>
                                     </div>
-                                    <div style="display:flex;flex-direction:column;gap:3px;">
-                                        <div class="sim-block" style="width:100%;height:14px;"></div>
-                                        <div class="sim-block" style="width:100%;height:14px;"></div>
-                                        <div class="sim-block" style="width:100%;height:14px;"></div>
-                                        <div class="sim-block" style="width:100%;height:14px;"></div>
-                                        <div class="sim-block" style="width:100%;height:14px;"></div>
-                                        <div class="sim-block" style="width:100%;height:14px;"></div>
+                                    <div class="sim-excel-row active">
+                                        <div class="sim-excel-cell">1</div>
+                                        <div class="sim-excel-cell">MTS-882</div>
+                                        <div class="sim-excel-cell">12 Apr</div>
+                                        <div class="sim-excel-cell">₹12,450</div>
+                                    </div>
+                                    <div class="sim-excel-row">
+                                        <div class="sim-excel-cell">2</div>
+                                        <div class="sim-excel-cell">ABC-001</div>
+                                        <div class="sim-excel-cell">10 Apr</div>
+                                        <div class="sim-excel-cell">₹4,200</div>
+                                    </div>
+                                    <div class="sim-excel-row">
+                                        <div class="sim-excel-cell">3</div>
+                                        <div class="sim-excel-cell">INV-45</div>
+                                        <div class="sim-excel-cell">09 Apr</div>
+                                        <div class="sim-excel-cell">₹98,000</div>
                                     </div>
                                 </div>
-                                <div class="sim-row" style="margin-top:auto;justify-content:flex-end;">
-                                    <div class="sim-block amber" style="width:100px;height:28px;border-radius:6px;"></div>
+                                <div class="sim-progress-container">
+                                    <div class="sim-progress-label"><span>Identifying GSTIN...</span><span>45%</span></div>
+                                    <div class="sim-progress-bar"><div class="sim-progress-fill" style="width: 45%"></div></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="preview-info">
-                        <div class="preview-module-name">Smart Invoice Parser</div>
-                        <div class="preview-module-desc">AI-powered extraction to structured Excel</div>
+                        <h4 class="preview-module-name">Smart Invoice Parser</h4>
+                        <p class="preview-module-desc">Extract invoice data directly into structured Excel spreadsheets.</p>
                     </div>
                 </div>
 
-                <!-- CMA Builder Preview -->
+                <!-- CMA / DPR Builder Preview -->
                 <div class="preview-card animate-on-scroll">
                     <div class="preview-image">
                         <div class="sim-ui">
-                            <div class="sim-toolbar">
-                                <div class="sim-dot r"></div>
-                                <div class="sim-dot y"></div>
-                                <div class="sim-dot g"></div>
+                            <div class="sim-titlebar">
+                                <span class="sim-window-label">CMA / DPR Builder</span>
+                                <div class="sim-window-tools">
+                                    <div class="sim-dot r"></div><div class="sim-dot y"></div><div class="sim-dot g"></div>
+                                </div>
                             </div>
                             <div class="sim-sidebar">
-                                <div class="sim-sidebar-icon"></div>
-                                <div class="sim-sidebar-icon"></div>
-                                <div class="sim-sidebar-icon active"></div>
-                                <div class="sim-sidebar-icon"></div>
+                                <div class="sim-sidebar-icon active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
                             </div>
-                            <div class="sim-content">
-                                <div class="sim-row"><div class="sim-block emerald" style="width:45%;height:16px;"></div></div>
-                                <div class="sim-row" style="gap:6px;margin-top:8px;">
-                                    <div class="sim-block emerald" style="width:60px;height:22px;border-radius:4px;"></div>
-                                    <div class="sim-block" style="width:60px;height:22px;border-radius:4px;"></div>
-                                    <div class="sim-block" style="width:60px;height:22px;border-radius:4px;"></div>
+                            <div class="sim-main">
+                                <div class="sim-header-row">
+                                    <div class="sim-btn-mock blue">Generate Report</div>
+                                    <div class="sim-btn-mock">Audit View</div>
                                 </div>
-                                <div style="flex:1;display:flex;flex-direction:column;gap:3px;margin-top:8px;">
-                                    <div class="sim-block" style="width:100%;height:18px;"></div>
-                                    <div class="sim-block" style="width:100%;height:18px;"></div>
-                                    <div class="sim-block" style="width:100%;height:18px;"></div>
-                                    <div class="sim-block" style="width:100%;height:18px;"></div>
-                                    <div class="sim-block" style="width:100%;height:18px;"></div>
+                                <div class="sim-grid-mock">
+                                    <div class="sim-grid-cell"></div><div class="sim-grid-cell"></div><div class="sim-grid-cell"></div><div class="sim-grid-cell"></div>
+                                    <div class="sim-grid-cell"></div><div class="sim-grid-cell"></div><div class="sim-grid-cell"></div><div class="sim-grid-cell"></div>
+                                    <div class="sim-grid-cell"></div><div class="sim-grid-cell"></div><div class="sim-grid-cell"></div><div class="sim-grid-cell"></div>
                                 </div>
-                                <div class="sim-row" style="margin-top:auto;gap:8px;">
-                                    <div class="sim-block emerald" style="width:90px;height:28px;border-radius:6px;"></div>
-                                    <div class="sim-block" style="width:90px;height:28px;border-radius:6px;"></div>
+                                <div class="sim-progress-container">
+                                    <div class="sim-progress-label"><span>Exporting to Word...</span><span>100%</span></div>
+                                    <div class="sim-progress-bar"><div class="sim-progress-fill" style="width: 100%; background: var(--accent-emerald);"></div></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="preview-info">
-                        <div class="preview-module-name">CMA / DPR Builder</div>
-                        <div class="preview-module-desc">Banker-grade financial projections & reports</div>
+                        <h4 class="preview-module-name">CMA / DPR Builder</h4>
+                        <p class="preview-module-desc">Professional financial projections and bank-ready audit reports.</p>
                     </div>
                 </div>
 
-                <!-- DSC Module Preview -->
+                <!-- Digital Signature Preview -->
                 <div class="preview-card animate-on-scroll">
                     <div class="preview-image">
                         <div class="sim-ui">
-                            <div class="sim-toolbar">
-                                <div class="sim-dot r"></div>
-                                <div class="sim-dot y"></div>
-                                <div class="sim-dot g"></div>
+                            <div class="sim-titlebar">
+                                <span class="sim-window-label">DSC Signing Portal</span>
+                                <div class="sim-window-tools">
+                                    <div class="sim-dot r"></div><div class="sim-dot y"></div><div class="sim-dot g"></div>
+                                </div>
                             </div>
                             <div class="sim-sidebar">
-                                <div class="sim-sidebar-icon"></div>
-                                <div class="sim-sidebar-icon"></div>
-                                <div class="sim-sidebar-icon"></div>
-                                <div class="sim-sidebar-icon active"></div>
+                                <div class="sim-sidebar-icon active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
                             </div>
-                            <div class="sim-content">
-                                <div class="sim-row"><div class="sim-block" style="width:50%;height:16px;background:rgba(167,139,250,0.15);"></div></div>
-                                <div style="display:grid;grid-template-columns:2fr 1fr;gap:8px;flex:1;margin-top:12px;">
-                                    <div style="display:flex;flex-direction:column;gap:4px;">
-                                        <div class="sim-block" style="width:100%;height:22px;"></div>
-                                        <div class="sim-block" style="width:100%;height:22px;"></div>
-                                        <div class="sim-block" style="width:100%;height:22px;"></div>
-                                        <div class="sim-block" style="width:100%;height:22px;"></div>
+                            <div class="sim-main" style="justify-content: center; align-items: center; border: 1px dashed var(--border-accent); border-radius: 8px; margin: 16px;">
+                                <div style="text-align: center;">
+                                    <div style="width: 32px; height: 32px; background: var(--accent-primary-glow); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                                     </div>
-                                    <div style="display:flex;flex-direction:column;gap:8px;align-items:center;">
-                                        <div class="sim-block" style="width:80px;height:60px;border-radius:8px;background:rgba(167,139,250,0.1);border:1px dashed rgba(167,139,250,0.2);"></div>
-                                        <div class="sim-block" style="width:60px;height:10px;background:rgba(167,139,250,0.15);"></div>
-                                    </div>
+                                    <div style="font-size: 0.65rem; color: var(--text-primary); font-weight: 600;">DSC Token Connected</div>
+                                    <div style="font-size: 0.55rem; color: var(--text-tertiary); margin-top: 4px;">Ready to sign 12 files</div>
                                 </div>
-                                <div class="sim-row" style="margin-top:auto;">
-                                    <div class="sim-block" style="width:120px;height:28px;border-radius:6px;background:rgba(167,139,250,0.15);"></div>
-                                </div>
+                            </div>
+                            <div class="sim-main" style="flex: 0; padding-top: 0;">
+                                <div class="sim-btn-mock blue" style="justify-content: center;">Sign All Documents</div>
                             </div>
                         </div>
                     </div>
                     <div class="preview-info">
-                        <div class="preview-module-name">Digital Signature Module</div>
-                        <div class="preview-module-desc">Bulk DSC signing with stamp configuration</div>
+                        <h4 class="preview-module-name">Digital Signature Module</h4>
+                        <p class="preview-module-desc">Bulk sign documents securely with your DSC token hooks.</p>
                     </div>
                 </div>
             </div>
@@ -2723,7 +2872,7 @@
                     <div class="footer-col-title">Resources</div>
                     <ul class="footer-links">
                         <li><a href="docs/install-guide.html">Installation Guide</a></li>
-                        <li><a href="https://github.com/marutitechsolutions/ca-office-utility/releases" target="_blank">Release Notes</a></li>
+                        <li><a href="release-notes.html">Release Notes</a></li>
                         <li><a href="#faq">FAQ</a></li>
                     </ul>
                 </div>
