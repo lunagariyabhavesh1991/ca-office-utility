@@ -1,0 +1,3012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CA Office PDF Utility — Offline PDF, Invoice, CMA & DSC Automation for CA Offices</title>
+    <meta name="description" content="Professional offline automation suite for Chartered Accountants, tax consultants, and audit firms. Merge, split, compress PDFs, parse invoices, build CMA/DPR reports, and bulk sign with DSC tokens.">
+    <meta name="keywords" content="CA office software, PDF utility, invoice parser, CMA builder, DPR builder, digital signature, DSC signing, chartered accountant software, offline PDF tool">
+    <meta name="author" content="Maruti Tech Solutions">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="CA Office PDF Utility — Professional Desktop Automation Suite">
+    <meta property="og:description" content="Offline PDF, Invoice, CMA & DSC automation built for CA offices and professionals.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://marutitechsolutions.github.io/ca-office-utility/">
+    <link rel="canonical" href="https://marutitechsolutions.github.io/ca-office-utility/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ================================================================
+           CA OFFICE PDF UTILITY — PREMIUM LANDING PAGE
+           Design: Dark SaaS / Enterprise Desktop Utility
+           ================================================================ */
+
+        :root {
+            --bg-primary: #06080d;
+            --bg-secondary: #0c1018;
+            --bg-tertiary: #111827;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --bg-card-hover: rgba(255, 255, 255, 0.06);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-medium: rgba(255, 255, 255, 0.1);
+            --border-accent: rgba(59, 130, 246, 0.3);
+
+            --accent-primary: #3b82f6;
+            --accent-primary-glow: rgba(59, 130, 246, 0.15);
+            --accent-secondary: #6366f1;
+            --accent-gradient: linear-gradient(135deg, #3b82f6, #6366f1);
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-tertiary: #64748b;
+            --text-accent: #60a5fa;
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-2xl: 24px;
+
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
+            --shadow-lg: 0 16px 48px rgba(0,0,0,0.5);
+            --shadow-glow: 0 0 60px rgba(59, 130, 246, 0.08);
+
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-spring: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Outfit', sans-serif;
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        /* ----------------------------------------------------------------
+           BACKGROUND EFFECTS
+           ---------------------------------------------------------------- */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -3;
+            pointer-events: none;
+        }
+
+        .bg-radial-1 {
+            position: fixed;
+            top: -200px;
+            right: -200px;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .bg-radial-2 {
+            position: fixed;
+            bottom: -300px;
+            left: -200px;
+            width: 900px;
+            height: 900px;
+            background: radial-gradient(circle, rgba(99,102,241,0.04) 0%, transparent 70%);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* ----------------------------------------------------------------
+           SECTION LAYOUT UTILITIES
+           ---------------------------------------------------------------- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-primary);
+            margin-bottom: 16px;
+            padding: 6px 16px;
+            background: var(--accent-primary-glow);
+            border: 1px solid rgba(59,130,246,0.15);
+            border-radius: 100px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-medium), transparent);
+        }
+
+        /* ----------------------------------------------------------------
+           ANIMATIONS
+           ---------------------------------------------------------------- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59,130,246,0.1); }
+            50% { box-shadow: 0 0 40px rgba(59,130,246,0.2); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ----------------------------------------------------------------
+           SECTION 1: STICKY NAVBAR
+           ---------------------------------------------------------------- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0 24px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(6, 8, 13, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            transition: var(--transition-smooth);
+        }
+
+        .navbar.scrolled {
+            background: rgba(6, 8, 13, 0.95);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+
+        .navbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .navbar-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            filter: drop-shadow(0 0 8px rgba(59,130,246,0.3));
+        }
+
+        .navbar-brand-text {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .navbar-brand-text span {
+            color: var(--accent-primary);
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .navbar-links a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        .navbar-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-primary);
+            transition: var(--transition-fast);
+        }
+
+        .navbar-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .navbar-links a:hover::after {
+            width: 100%;
+        }
+
+        .navbar-cta {
+            font-size: 0.85rem !important;
+            font-weight: 600 !important;
+            color: #fff !important;
+            background: var(--accent-primary);
+            padding: 8px 20px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition-smooth) !important;
+            box-shadow: 0 4px 12px rgba(59,130,246,0.25);
+        }
+
+        .navbar-cta:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(59,130,246,0.35);
+        }
+
+        .navbar-cta::after {
+            display: none !important;
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .mobile-toggle span {
+            width: 22px;
+            height: 2px;
+            background: var(--text-secondary);
+            border-radius: 2px;
+            transition: var(--transition-fast);
+        }
+
+        /* ----------------------------------------------------------------
+           SECTION 2: HERO SECTION
+           ---------------------------------------------------------------- */
+        .hero {
+            padding: 140px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1000px;
+            height: 600px;
+            background: radial-gradient(ellipse, rgba(59,130,246,0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: var(--accent-emerald);
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .hero-badge-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-emerald);
+            animation: pulse-glow 2s infinite;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5.5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-title-gradient {
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-title-accent {
+            display: block;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            font-weight: 600;
+            margin-top: 8px;
+            letter-spacing: 0;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 540px;
+            line-height: 1.7;
+            margin: 20px 0 32px;
+        }
+
+        .hero-ctas {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: var(--accent-primary);
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            transition: var(--transition-smooth);
+            box-shadow: 0 8px 24px rgba(59,130,246,0.25);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(59,130,246,0.35);
+        }
+
+        .btn-primary svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 24px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-medium);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            color: var(--text-primary);
+            border-color: var(--accent-primary);
+            background: var(--accent-primary-glow);
+        }
+
+        .btn-secondary svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Trust Badges */
+        .hero-trust-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.825rem;
+            color: var(--text-tertiary);
+            font-weight: 500;
+        }
+
+        .trust-badge svg {
+            width: 16px;
+            height: 16px;
+            color: var(--accent-primary);
+            flex-shrink: 0;
+        }
+
+        /* Hero Side Panel */
+        .hero-panel {
+            animation: slideInRight 0.8s ease-out 0.2s both;
+        }
+
+        .hero-panel-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-xl);
+            padding: 28px;
+            backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-panel-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+        }
+
+        .hero-panel-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-tertiary);
+            margin-bottom: 20px;
+        }
+
+        .hero-panel-items {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .hero-panel-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .hero-panel-item:last-child {
+            border-bottom: none;
+        }
+
+        .hero-panel-item-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .hero-panel-item-value {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .hero-panel-item-value.tag {
+            background: rgba(16,185,129,0.1);
+            color: var(--accent-emerald);
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+        }
+
+        .hero-panel-item-value.version {
+            background: var(--accent-primary-glow);
+            color: var(--accent-primary);
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+        }
+
+        .hero-panel-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .hero-stat {
+            text-align: center;
+            padding: 12px 8px;
+            background: rgba(255,255,255,0.02);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .hero-stat-value {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+        }
+
+        .hero-stat-label {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            margin-top: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ----------------------------------------------------------------
+           SECTION 3: DOWNLOAD / SMART CTA CARD
+           ---------------------------------------------------------------- */
+        .download-section {
+            padding: 60px 0 100px;
+        }
+
+        .download-card-premium {
+            max-width: 680px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-2xl);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg), var(--shadow-glow);
+        }
+
+        .download-card-premium::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+        }
+
+        .download-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 28px;
+        }
+
+        .download-card-title-area {
+            flex: 1;
+        }
+
+        .download-card-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent-emerald);
+            background: rgba(16,185,129,0.1);
+            border: 1px solid rgba(16,185,129,0.15);
+            padding: 5px 12px;
+            border-radius: 100px;
+            margin-bottom: 12px;
+        }
+
+        .download-card-badge-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--accent-emerald);
+        }
+
+        .download-card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .download-card-version {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .download-card-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+            padding: 20px;
+            background: rgba(255,255,255,0.02);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .download-meta-item {
+            text-align: center;
+        }
+
+        .download-meta-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-tertiary);
+            margin-bottom: 4px;
+        }
+
+        .download-meta-value {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .download-btn-area {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .download-btn-main {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 400px;
+            padding: 16px 32px;
+            background: var(--accent-primary);
+            color: #fff;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            transition: var(--transition-smooth);
+            box-shadow: 0 8px 24px rgba(59,130,246,0.3);
+        }
+
+        .download-btn-main:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 36px rgba(59,130,246,0.4);
+        }
+
+        .download-btn-main svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .download-secondary-actions {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .download-sec-btn {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-subtle);
+            background: transparent;
+            transition: var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .download-sec-btn:hover {
+            color: var(--text-secondary);
+            border-color: var(--border-medium);
+            background: rgba(255,255,255,0.02);
+        }
+
+        /* ----------------------------------------------------------------
+           SECTION 4: TRUST / VALUE STRIP
+           ---------------------------------------------------------------- */
+        .trust-strip {
+            padding: 60px 0;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .trust-strip-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 32px;
+        }
+
+        .trust-strip-item {
+            text-align: center;
+            padding: 24px 16px;
+            border-radius: var(--radius-lg);
+            transition: var(--transition-smooth);
+        }
+
+        .trust-strip-item:hover {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .trust-strip-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-primary-glow);
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(59,130,246,0.1);
+        }
+
+        .trust-strip-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--accent-primary);
+        }
+
+        .trust-strip-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .trust-strip-desc {
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+        }
+
+        /* ----------------------------------------------------------------
+           SECTION 5: CORE MODULES
+           ---------------------------------------------------------------- */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .module-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-xl);
+            padding: 32px;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .module-card:hover {
+            border-color: var(--border-accent);
+            background: var(--bg-card-hover);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md), 0 0 40px rgba(59,130,246,0.05);
+        }
+
+        .module-card:hover::before {
+            opacity: 1;
+        }
+
+        .module-card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .module-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-md);
+            font-size: 1.5rem;
+        }
+
+        .module-icon.pdf { background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.15); }
+        .module-icon.invoice { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.15); }
+        .module-icon.cma { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.15); }
+        .module-icon.dsc { background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.15); }
+
+        .module-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 4px 10px;
+            border-radius: 100px;
+        }
+
+        .module-badge.ai {
+            color: var(--accent-amber);
+            background: rgba(245,158,11,0.1);
+            border: 1px solid rgba(245,158,11,0.12);
+        }
+
+        .module-badge.pro {
+            color: var(--accent-emerald);
+            background: rgba(16,185,129,0.1);
+            border: 1px solid rgba(16,185,129,0.12);
+        }
+
+        .module-badge.secure {
+            color: #a78bfa;
+            background: rgba(167,139,250,0.1);
+            border: 1px solid rgba(167,139,250,0.12);
+        }
+
+        .module-badge.utility {
+            color: var(--accent-primary);
+            background: var(--accent-primary-glow);
+            border: 1px solid rgba(59,130,246,0.12);
+        }
+
+        .module-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .module-desc {
+            font-size: 0.925rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 16px;
+            flex: 1;
+        }
+
+        .module-usecase {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.825rem;
+            color: var(--text-tertiary);
+            padding-top: 16px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .module-usecase svg {
+            width: 14px;
+            height: 14px;
+            color: var(--accent-primary);
+            flex-shrink: 0;
+        }
+
+        .module-usecase strong {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .module-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.825rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+            margin-top: 16px;
+            transition: var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .module-cta:hover {
+            gap: 10px;
+        }
+
+        .module-cta svg {
+            width: 14px;
+            height: 14px;
+            transition: var(--transition-fast);
+        }
+
+        /* Future module placeholder */
+        .module-card.coming-soon {
+            border-style: dashed;
+            opacity: 0.65;
+        }
+
+        .module-card.coming-soon:hover {
+            opacity: 0.85;
+        }
+
+        /* ----------------------------------------------------------------
+           SECTION 6: WHO IS THIS FOR
+           ---------------------------------------------------------------- */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+
+        .audience-card {
+            text-align: center;
+            padding: 32px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            transition: var(--transition-smooth);
+        }
+
+        .audience-card:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-4px);
+            background: var(--bg-card-hover);
+        }
+
+        .audience-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-primary-glow);
+            border-radius: 50%;
+            border: 1px solid rgba(59,130,246,0.1);
+            font-size: 1.5rem;
+        }
+
+        .audience-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .audience-sub {
+            font-size: 0.78rem;
+            color: var(--text-tertiary);
+            margin-top: 4px;
+        }
+
+        /* ----------------------------------------------------------------
+           SECTION 7: USE CASES
+           ---------------------------------------------------------------- */
+        .usecases-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .usecase-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .usecase-card:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-3px);
+            background: var(--bg-card-hover);
+        }
+
+        .usecase-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: rgba(59,130,246,0.15);
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .usecase-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .usecase-desc {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            line-height: 1.6;
+        }
+
+        .usecase-module-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+            background: var(--accent-primary-glow);
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-top: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        /* ----------------------------------------------------------------
+           SECTION 8: WHY CHOOSE / COMPARISON
+           ---------------------------------------------------------------- */
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 80px 1fr;
+            gap: 0;
+            max-width: 900px;
+            margin: 0 auto;
+            align-items: stretch;
+        }
+
+        .comparison-col {
+            padding: 36px;
+            border-radius: var(--radius-xl);
+        }
+
+        .comparison-before {
+            background: rgba(244, 63, 94, 0.04);
+            border: 1px solid rgba(244, 63, 94, 0.12);
+        }
+
+        .comparison-after {
+            background: rgba(16, 185, 129, 0.04);
+            border: 1px solid rgba(16, 185, 129, 0.12);
+        }
+
+        .comparison-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .comparison-before .comparison-label {
+            color: var(--accent-rose);
+        }
+
+        .comparison-after .comparison-label {
+            color: var(--accent-emerald);
+        }
+
+        .comparison-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .comparison-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .comparison-list li svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .comparison-before .comparison-list li svg {
+            color: var(--accent-rose);
+        }
+
+        .comparison-after .comparison-list li svg {
+            color: var(--accent-emerald);
+        }
+
+        .comparison-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .comparison-arrow svg {
+            width: 32px;
+            height: 32px;
+            color: var(--text-tertiary);
+        }
+
+        /* Value Points Grid */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 60px;
+        }
+
+        .value-point {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            transition: var(--transition-smooth);
+        }
+
+        .value-point:hover {
+            border-color: var(--border-accent);
+        }
+
+        .value-point-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-primary-glow);
+            border-radius: var(--radius-sm);
+            flex-shrink: 0;
+        }
+
+        .value-point-icon svg {
+            width: 20px;
+            height: 20px;
+            color: var(--accent-primary);
+        }
+
+        .value-point-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .value-point-desc {
+            font-size: 0.82rem;
+            color: var(--text-tertiary);
+            line-height: 1.5;
+        }
+
+        /* ----------------------------------------------------------------
+           SECTION 9: PRODUCT PREVIEW / GALLERY
+           ---------------------------------------------------------------- */
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .preview-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .preview-card:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .preview-image {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            background: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-image-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            color: var(--text-tertiary);
+        }
+
+        .preview-image-placeholder svg {
+            width: 48px;
+            height: 48px;
+            opacity: 0.4;
+        }
+
+        .preview-image-placeholder span {
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Simulated UI inside preview cards - Redesigned for High Fidelity */
+        .sim-ui {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            background: #0d1117;
+            position: relative;
+        }
+
+        .sim-titlebar {
+            height: 32px;
+            background: rgba(255,255,255,0.03);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .sim-window-tools {
+            display: flex;
+            gap: 6px;
+        }
+
+        .sim-window-label {
+            font-size: 0.65rem;
+            color: var(--text-tertiary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sim-sidebar {
+            position: absolute;
+            left: 0;
+            top: 32px;
+            bottom: 0;
+            width: 54px;
+            background: rgba(0,0,0,0.2);
+            border-right: 1px solid var(--border-subtle);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 16px;
+            gap: 12px;
+        }
+
+        .sim-sidebar-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .sim-sidebar-icon.active {
+            background: var(--accent-primary-glow);
+            border: 1px solid rgba(59,130,246,0.2);
+            color: var(--accent-primary);
+        }
+
+        .sim-sidebar-icon svg {
+            width: 14px;
+            height: 14px;
+            opacity: 0.7;
+        }
+
+        .sim-main {
+            margin-left: 54px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            flex: 1;
+        }
+
+        .sim-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .sim-btn-group {
+            display: flex;
+            gap: 6px;
+        }
+
+        .sim-btn-mock {
+            height: 24px;
+            padding: 0 10px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            font-size: 0.6rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .sim-btn-mock.blue { background: var(--accent-primary); color: #fff; border: none; }
+
+        .sim-list-view {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .sim-list-header {
+            height: 24px;
+            background: rgba(255,255,255,0.03);
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            align-items: center;
+            padding: 0 12px;
+            font-size: 0.6rem;
+            color: var(--text-tertiary);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .sim-list-row {
+            height: 32px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            align-items: center;
+            padding: 0 12px;
+            font-size: 0.65rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .sim-list-row:last-child { border-bottom: none; }
+
+        .sim-file-name { color: var(--text-primary); display: flex; align-items: center; gap: 6px; }
+        .sim-file-icon { width: 12px; height: 12px; opacity: 0.6; }
+
+        .sim-status-pill {
+            display: inline-flex;
+            padding: 2px 6px;
+            border-radius: 100px;
+            font-size: 0.55rem;
+            font-weight: 600;
+        }
+
+        .sim-status-pill.blue { background: rgba(59,130,246,0.1); color: var(--accent-primary); }
+        .sim-status-pill.green { background: rgba(16,185,129,0.1); color: var(--accent-emerald); }
+
+        .sim-progress-container {
+            margin-top: auto;
+            padding: 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .sim-progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.6rem;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .sim-progress-bar {
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .sim-progress-fill {
+            height: 100%;
+            background: var(--accent-primary);
+            width: 75%;
+            border-radius: 2px;
+        }
+
+        .sim-grid-mock {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .sim-grid-cell {
+            height: 40px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+        }
+
+        .sim-excel-view {
+            border: 1px solid #1e293b;
+            border-radius: 4px;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sim-excel-header {
+            height: 20px;
+            background: #1e293b;
+            display: grid;
+            grid-template-columns: 30px 1fr 1fr 1fr;
+            gap: 1px;
+        }
+
+        .sim-excel-cell {
+            background: #0f172a;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 6px;
+            font-size: 0.55rem;
+            color: #94a3b8;
+        }
+
+        .sim-excel-row {
+            height: 20px;
+            display: grid;
+            grid-template-columns: 30px 1fr 1fr 1fr;
+            gap: 1px;
+            background: #1e293b;
+        }
+
+        .sim-excel-row .sim-excel-cell:first-child { background: #1e293b; justify-content: center; }
+        .sim-excel-row .sim-excel-cell { background: #0f172a; color: #cbd5e1; }
+        .sim-excel-row.active .sim-excel-cell { background: rgba(59,130,246,0.1); }
+
+        .preview-info {
+            padding: 20px 24px;
+        }
+
+        .preview-module-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .preview-module-desc {
+            font-size: 0.82rem;
+            color: var(--text-tertiary);
+        }
+
+        /* ----------------------------------------------------------------
+           SECTION 10: FAQ
+           ---------------------------------------------------------------- */
+        .faq-list {
+            max-width: 760px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: var(--transition-fast);
+        }
+
+        .faq-item:hover {
+            border-color: var(--border-medium);
+        }
+
+        .faq-question {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            text-align: left;
+            gap: 16px;
+        }
+
+        .faq-question svg {
+            width: 20px;
+            height: 20px;
+            color: var(--text-tertiary);
+            transition: var(--transition-fast);
+            flex-shrink: 0;
+        }
+
+        .faq-item.active .faq-question svg {
+            transform: rotate(180deg);
+            color: var(--accent-primary);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+        }
+
+        .faq-answer-content {
+            padding: 0 24px 20px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ----------------------------------------------------------------
+           SECTION 11: CONTACT / SUPPORT CTA
+           ---------------------------------------------------------------- */
+        .contact-section {
+            padding: 80px 0;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            padding: 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            transition: var(--transition-smooth);
+        }
+
+        .contact-card:hover {
+            border-color: var(--border-accent);
+        }
+
+        .contact-card-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-primary-glow);
+            border-radius: 50%;
+        }
+
+        .contact-card-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--accent-primary);
+        }
+
+        .contact-card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .contact-card-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .contact-card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+            transition: var(--transition-fast);
+        }
+
+        .contact-card-link:hover {
+            gap: 12px;
+        }
+
+        /* ----------------------------------------------------------------
+           SECTION 12: FOOTER
+           ---------------------------------------------------------------- */
+        .footer {
+            padding: 60px 0 32px;
+            border-top: 1px solid var(--border-subtle);
+            background: var(--bg-primary);
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand-area {
+        }
+
+        .footer-logo-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .footer-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+        }
+
+        .footer-brand-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .footer-brand-name span {
+            color: var(--accent-primary);
+        }
+
+        .footer-brand-desc {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            line-height: 1.6;
+            max-width: 300px;
+        }
+
+        .footer-col-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            transition: var(--transition-fast);
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-subtle);
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+        }
+
+        .footer-badges {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-tertiary);
+        }
+
+        /* ----------------------------------------------------------------
+           RESPONSIVE
+           ---------------------------------------------------------------- */
+        @media (max-width: 1024px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-ctas {
+                justify-content: center;
+            }
+
+            .hero-trust-badges {
+                justify-content: center;
+            }
+
+            .hero-panel {
+                max-width: 440px;
+                margin: 0 auto;
+            }
+
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-strip-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .audience-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .comparison-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .comparison-arrow {
+                transform: rotate(90deg);
+            }
+
+            .value-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 72px 0;
+            }
+
+            .navbar-links {
+                display: none;
+                position: absolute;
+                top: 72px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(6,8,13,0.98);
+                backdrop-filter: blur(20px);
+                padding: 24px;
+                gap: 16px;
+                border-bottom: 1px solid var(--border-subtle);
+            }
+
+            .navbar-links.open {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .trust-strip-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .usecases-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .audience-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .preview-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .download-card-meta {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 2.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .hero {
+                padding: 120px 0 60px;
+            }
+
+            .hero-trust-badges {
+                gap: 16px;
+            }
+
+            .download-card-premium {
+                padding: 24px;
+            }
+
+            .trust-strip-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .audience-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bg-grid"></div>
+    <div class="bg-radial-1"></div>
+    <div class="bg-radial-2"></div>
+
+    <!-- ================================================================
+         SECTION 1: STICKY NAVBAR
+         ================================================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="#" class="navbar-brand">
+                <img src="assets/images/logo.png" alt="CA Office PDF Utility" class="navbar-logo">
+                <span class="navbar-brand-text">CA Office <span>PDF Utility</span></span>
+            </a>
+            <ul class="navbar-links" id="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#modules">Features</a></li>
+                <li><a href="#usecases">Use Cases</a></li>
+                <li><a href="#download">Download</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#download" class="navbar-cta">Get Windows Build</a></li>
+            </ul>
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ================================================================
+         SECTION 2: HERO SECTION
+         ================================================================ -->
+    <section class="hero" id="hero">
+        <div class="hero-glow"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <div class="hero-badge-dot"></div>
+                    Professional Release v1.1.2 (Latest Update: April 17, 2026)
+                </div>
+                <h1 class="hero-title">
+                    <span class="hero-title-gradient">CA Office PDF Utility</span>
+                    <span class="hero-title-accent">Offline PDF, Invoice, CMA & DSC Automation for CA Offices</span>
+                </h1>
+                <p class="hero-description">
+                    A secure desktop automation suite designed for Chartered Accountants, tax professionals, audit offices, and document-heavy workflows. Process everything offline — no uploads, no risk.
+                </p>
+                <div class="hero-ctas">
+                    <a href="#download" class="btn-primary" id="hero-download-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        Download for Windows
+                    </a>
+                    <a href="#modules" class="btn-secondary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                        View Features
+                    </a>
+                </div>
+                <div class="hero-trust-badges">
+                    <div class="trust-badge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        Offline Processing
+                    </div>
+                    <div class="trust-badge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                        No Data Upload
+                    </div>
+                    <div class="trust-badge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        CA Office Ready
+                    </div>
+                    <div class="trust-badge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                        Windows Compatible
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Side Panel -->
+            <div class="hero-panel">
+                <div class="hero-panel-card">
+                    <div class="hero-panel-title">Product Information</div>
+                    <div class="hero-panel-items">
+                        <div class="hero-panel-item">
+                            <span class="hero-panel-item-label">Version</span>
+                            <span class="hero-panel-item-value version">v1.1.2</span>
+                        </div>
+                        <div class="hero-panel-item">
+                            <span class="hero-panel-item-label">Build</span>
+                            <span class="hero-panel-item-value">Production</span>
+                        </div>
+                        <div class="hero-panel-item">
+                            <span class="hero-panel-item-label">Platform</span>
+                            <span class="hero-panel-item-value">Windows 10 / 11</span>
+                        </div>
+                        <div class="hero-panel-item">
+                            <span class="hero-panel-item-label">Download</span>
+                            <span class="hero-panel-item-value tag">Secure</span>
+                        </div>
+                        <div class="hero-panel-item">
+                            <span class="hero-panel-item-label">Release</span>
+                            <span class="hero-panel-item-value tag">Latest</span>
+                        </div>
+                    </div>
+                    <div class="hero-panel-stats">
+                        <div class="hero-stat">
+                            <div class="hero-stat-value">4</div>
+                            <div class="hero-stat-label">Core Modules</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-value">100%</div>
+                            <div class="hero-stat-label">Offline</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 3: DOWNLOAD / SMART CTA CARD
+         ================================================================ -->
+    <section class="download-section" id="download">
+        <div class="container">
+            <div class="download-card-premium animate-on-scroll">
+                <div class="download-card-header">
+                    <div class="download-card-title-area">
+                        <div class="download-card-badge">
+                            <span class="download-card-badge-dot"></span>
+                            Production Ready
+                        </div>
+                        <h2 class="download-card-title" id="download-title">Smart Download</h2>
+                        <p class="download-card-version" id="download-subtitle">CA Office PDF Utility — Desktop Application</p>
+                    </div>
+                </div>
+
+                <div class="download-card-meta">
+                    <div class="download-meta-item">
+                        <div class="download-meta-label">Version</div>
+                        <div class="download-meta-value">v1.1.2 (April '26)</div>
+                    </div>
+                    <div class="download-meta-item">
+                        <div class="download-meta-label">Format</div>
+                        <div class="download-meta-value" id="download-format">Windows ZIP</div>
+                    </div>
+                    <div class="download-meta-item">
+                        <div class="download-meta-label">Type</div>
+                        <div class="download-meta-value">Desktop App</div>
+                    </div>
+                </div>
+
+                <div class="download-btn-area">
+                    <a href="#" class="download-btn-main" id="primary-dl">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        <span id="dl-text">Download for Windows</span>
+                    </a>
+                </div>
+
+                <div class="download-secondary-actions">
+                    <a href="release-notes.html" class="download-sec-btn">Release Notes</a>
+                    <a href="docs/install-guide.html" class="download-sec-btn">Installation Guide</a>
+                    <a href="release-notes.html" class="download-sec-btn">All Releases</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 4: TRUST / VALUE STRIP
+         ================================================================ -->
+    <section class="trust-strip">
+        <div class="container">
+            <div class="trust-strip-grid">
+                <div class="trust-strip-item animate-on-scroll">
+                    <div class="trust-strip-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <div class="trust-strip-title">100% Offline Workflow</div>
+                    <div class="trust-strip-desc">All processing stays on your machine</div>
+                </div>
+                <div class="trust-strip-item animate-on-scroll">
+                    <div class="trust-strip-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                    <div class="trust-strip-title">Designed for CA Offices</div>
+                    <div class="trust-strip-desc">Purpose-built for professional workflows</div>
+                </div>
+                <div class="trust-strip-item animate-on-scroll">
+                    <div class="trust-strip-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    </div>
+                    <div class="trust-strip-title">Faster Daily Operations</div>
+                    <div class="trust-strip-desc">Automate repetitive document tasks</div>
+                </div>
+                <div class="trust-strip-item animate-on-scroll">
+                    <div class="trust-strip-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    </div>
+                    <div class="trust-strip-title">Secure Document Handling</div>
+                    <div class="trust-strip-desc">No third-party file exposure</div>
+                </div>
+                <div class="trust-strip-item animate-on-scroll">
+                    <div class="trust-strip-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    </div>
+                    <div class="trust-strip-title">Multi-Tool Utility Suite</div>
+                    <div class="trust-strip-desc">4 professional modules in one application</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 5: CORE MODULES
+         ================================================================ -->
+    <section class="section" id="modules">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-label">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    Core Modules
+                </div>
+                <h2 class="section-title">Powerful Utilities Built for Real Office Work</h2>
+                <p class="section-subtitle">Every module is designed around the daily document challenges faced by CA offices, tax consultants, and audit professionals.</p>
+            </div>
+
+            <div class="modules-grid">
+                <!-- PDF Engineering -->
+                <div class="module-card animate-on-scroll">
+                    <div class="module-card-top">
+                        <div class="module-icon pdf">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                        </div>
+                        <span class="module-badge utility">Office Utility</span>
+                    </div>
+                    <h3 class="module-title">PDF Engineering</h3>
+                    <p class="module-desc">Merge, split, reorder, compress, and manage PDFs while preserving document quality. Handle bulk operations with precision tools built for high-volume office environments.</p>
+                    <div class="module-usecase">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        <span><strong>Best for:</strong> Daily office PDF handling</span>
+                    </div>
+                </div>
+
+                <!-- Smart Invoice Parser -->
+                <div class="module-card animate-on-scroll">
+                    <div class="module-card-top">
+                        <div class="module-icon invoice">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+                        </div>
+                        <span class="module-badge ai">AI Powered</span>
+                    </div>
+                    <h3 class="module-title">Smart Invoice Parser</h3>
+                    <p class="module-desc">Extract invoice number, date, GSTIN, tax values, and totals into structured Excel reports. AI and OCR-assisted parsing handles diverse invoice formats automatically.</p>
+                    <div class="module-usecase">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        <span><strong>Best for:</strong> Bulk invoice data entry</span>
+                    </div>
+                </div>
+
+                <!-- CMA / DPR Builder -->
+                <div class="module-card animate-on-scroll">
+                    <div class="module-card-top">
+                        <div class="module-icon cma">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                        </div>
+                        <span class="module-badge pro">v1.1.2 Feature</span>
+                    </div>
+                    <h3 class="module-title">CMA / DPR Builder</h3>
+                    <p class="module-desc">Generate banker-ready reports with granular support for **Bank OD**, **Unsecured Loans**, and **Investments**. New real-time B/S Tally reconciliation engine ensures institutional-grade audit precision.</p>
+                    <div class="module-usecase">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        <span><strong>Latest:</strong> Granular Loan & Tally Sync</span>
+                    </div>
+                </div>
+
+                <!-- Digital Signature -->
+                <div class="module-card animate-on-scroll">
+                    <div class="module-card-top">
+                        <div class="module-icon dsc">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <span class="module-badge secure">Secure</span>
+                    </div>
+                    <h3 class="module-title">Digital Signature</h3>
+                    <p class="module-desc">Bulk sign documents using DSC tokens with configurable stamp placement and secure workflow. Handle high-volume document signing without compromising security.</p>
+                    <div class="module-usecase">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        <span><strong>Best for:</strong> High-volume document signing</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coming Soon hint -->
+            <div style="text-align:center; margin-top:40px;" class="animate-on-scroll">
+                <p style="font-size:0.85rem; color:var(--text-tertiary); display:inline-flex; align-items:center; gap:8px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    More modules and professional upgrades are on the roadmap
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ================================================================
+         SECTION 6: WHO IS THIS FOR
+         ================================================================ -->
+    <section class="section" id="audience">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-label">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Built For Professionals
+                </div>
+                <h2 class="section-title">Who Is This Software For?</h2>
+                <p class="section-subtitle">Purpose-built for professionals who handle complex documents, financial reports, and compliance filings every day.</p>
+            </div>
+
+            <div class="audience-grid">
+                <div class="audience-card animate-on-scroll">
+                    <div class="audience-icon">📊</div>
+                    <div class="audience-title">Chartered Accountants</div>
+                    <div class="audience-sub">Financial reporting & compliance</div>
+                </div>
+                <div class="audience-card animate-on-scroll">
+                    <div class="audience-icon">📋</div>
+                    <div class="audience-title">Tax Consultants</div>
+                    <div class="audience-sub">Invoice management & filings</div>
+                </div>
+                <div class="audience-card animate-on-scroll">
+                    <div class="audience-icon">🧮</div>
+                    <div class="audience-title">Accountants</div>
+                    <div class="audience-sub">Daily document processing</div>
+                </div>
+                <div class="audience-card animate-on-scroll">
+                    <div class="audience-icon">🏢</div>
+                    <div class="audience-title">Audit Firms</div>
+                    <div class="audience-sub">Bulk document workflows</div>
+                </div>
+                <div class="audience-card animate-on-scroll">
+                    <div class="audience-icon">📁</div>
+                    <div class="audience-title">Office Staff</div>
+                    <div class="audience-sub">Documentation & administration</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ================================================================
+         SECTION 7: REAL OFFICE USE CASES
+         ================================================================ -->
+    <section class="section" id="usecases">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-label">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    Real Office Scenarios
+                </div>
+                <h2 class="section-title">Practical Use Cases</h2>
+                <p class="section-subtitle">See how CA offices use this utility to solve real-world document challenges every day.</p>
+            </div>
+
+            <div class="usecases-grid">
+                <div class="usecase-card animate-on-scroll">
+                    <div class="usecase-number">01</div>
+                    <h3 class="usecase-title">Merge 40 Client Invoices into One PDF</h3>
+                    <p class="usecase-desc">Combine all client invoices into a single document for submission, audit trails, or filing in seconds.</p>
+                    <span class="usecase-module-tag">PDF Engineering</span>
+                </div>
+                <div class="usecase-card animate-on-scroll">
+                    <div class="usecase-number">02</div>
+                    <h3 class="usecase-title">Split Master PDF into Individual Files</h3>
+                    <p class="usecase-desc">Break a bulk-scanned document into individual invoice or statement files for organized recordkeeping.</p>
+                    <span class="usecase-module-tag">PDF Engineering</span>
+                </div>
+                <div class="usecase-card animate-on-scroll">
+                    <div class="usecase-number">03</div>
+                    <h3 class="usecase-title">Extract Invoice Data Directly into Excel</h3>
+                    <p class="usecase-desc">Skip manual data entry — extract invoice numbers, dates, GSTIN, and amounts automatically into formatted spreadsheets.</p>
+                    <span class="usecase-module-tag">Smart Invoice Parser</span>
+                </div>
+                <div class="usecase-card animate-on-scroll">
+                    <div class="usecase-number">04</div>
+                    <h3 class="usecase-title">Prepare Banker-Grade CMA / DPR Reports</h3>
+                    <p class="usecase-desc">Generate institutional-quality financial projections and project reports for loan proposals in minutes, not hours.</p>
+                    <span class="usecase-module-tag">CMA / DPR Builder</span>
+                </div>
+                <div class="usecase-card animate-on-scroll">
+                    <div class="usecase-number">05</div>
+                    <h3 class="usecase-title">Add Password Protection to Client Documents</h3>
+                    <p class="usecase-desc">Secure sensitive client files with password protection before sharing or archiving — all processed locally.</p>
+                    <span class="usecase-module-tag">PDF Engineering</span>
+                </div>
+                <div class="usecase-card animate-on-scroll">
+                    <div class="usecase-number">06</div>
+                    <h3 class="usecase-title">Bulk Sign Documents Using DSC Token</h3>
+                    <p class="usecase-desc">Sign hundreds of documents with your digital signature certificate token in a streamlined, secure batch workflow.</p>
+                    <span class="usecase-module-tag">Digital Signature</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ================================================================
+         SECTION 8: WHY CHOOSE THIS SOFTWARE
+         ================================================================ -->
+    <section class="section" id="why">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-label">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    Why This Software
+                </div>
+                <h2 class="section-title">Why CA Offices Choose This Utility</h2>
+                <p class="section-subtitle">Replace scattered tools and risky online services with one secure, professional desktop suite.</p>
+            </div>
+
+            <!-- Before vs After Comparison -->
+            <div class="comparison-container animate-on-scroll">
+                <div class="comparison-col comparison-before">
+                    <div class="comparison-label">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                        Without This Software
+                    </div>
+                    <ul class="comparison-list">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                            Multiple scattered online tools
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                            Manual PDF handling and data entry
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                            Slow, repetitive document work
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                            Risk of uploading sensitive files
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                            Hours spent on CMA/DPR reports
+                        </li>
+                    </ul>
+                </div>
+                <div class="comparison-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </div>
+                <div class="comparison-col comparison-after">
+                    <div class="comparison-label">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        With CA Office PDF Utility
+                    </div>
+                    <ul class="comparison-list">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            One unified utility suite
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            Automated workflow & extraction
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            Faster daily operations
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            Complete local file privacy
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            Professional reports in minutes
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Value Points -->
+            <div class="value-grid">
+                <div class="value-point animate-on-scroll">
+                    <div class="value-point-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <div>
+                        <div class="value-point-title">Offline Local Processing</div>
+                        <div class="value-point-desc">Your sensitive client documents never leave your computer. Zero cloud dependency.</div>
+                    </div>
+                </div>
+                <div class="value-point animate-on-scroll">
+                    <div class="value-point-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    </div>
+                    <div>
+                        <div class="value-point-title">Better Privacy for Client Files</div>
+                        <div class="value-point-desc">No reliance on online PDF websites. Client data stays within your infrastructure.</div>
+                    </div>
+                </div>
+                <div class="value-point animate-on-scroll">
+                    <div class="value-point-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    </div>
+                    <div>
+                        <div class="value-point-title">Faster Repetitive Work</div>
+                        <div class="value-point-desc">Bulk operations that previously took hours are completed in seconds.</div>
+                    </div>
+                </div>
+                <div class="value-point animate-on-scroll">
+                    <div class="value-point-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    </div>
+                    <div>
+                        <div class="value-point-title">Multiple Utilities, One Software</div>
+                        <div class="value-point-desc">PDF tools, invoice parser, CMA builder, and DSC module — all in one install.</div>
+                    </div>
+                </div>
+                <div class="value-point animate-on-scroll">
+                    <div class="value-point-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    </div>
+                    <div>
+                        <div class="value-point-title">Professional Workflow Design</div>
+                        <div class="value-point-desc">Every feature is designed around how CA offices actually handle documents.</div>
+                    </div>
+                </div>
+                <div class="value-point animate-on-scroll">
+                    <div class="value-point-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    </div>
+                    <div>
+                        <div class="value-point-title">Windows Desktop Application</div>
+                        <div class="value-point-desc">Native Windows utility – runs without browser, internet, or subscriptions.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="section" id="preview">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-label">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    Product Preview
+                </div>
+                <h2 class="section-title">Software Interface</h2>
+                <p class="section-subtitle">A modern, intuitive desktop interface designed for speed and professional use.</p>
+            </div>
+
+            <div class="preview-grid">
+                <!-- PDF Engineering Module Preview -->
+                <div class="preview-card animate-on-scroll">
+                    <div class="preview-image">
+                        <div class="sim-ui">
+                            <div class="sim-titlebar">
+                                <span class="sim-window-label">PDF Engineering Module</span>
+                                <div class="sim-window-tools">
+                                    <div class="sim-dot r"></div><div class="sim-dot y"></div><div class="sim-dot g"></div>
+                                </div>
+                            </div>
+                            <div class="sim-sidebar">
+                                <div class="sim-sidebar-icon active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg></div>
+                                <div class="sim-sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+                            </div>
+                            <div class="sim-main">
+                                <div class="sim-header-row">
+                                    <div class="sim-btn-group">
+                                        <div class="sim-btn-mock blue">Add Files</div>
+                                        <div class="sim-btn-mock">Merge All</div>
+                                    </div>
+                                    <div class="sim-btn-mock">Options</div>
+                                </div>
+                                <div class="sim-list-view">
+                                    <div class="sim-list-header"><span>File Name</span><span>Size</span><span>Pages</span></div>
+                                    <div class="sim-list-row">
+                                        <span class="sim-file-name">client_audit_data.pdf</span><span>4.2 MB</span><span>12</span>
+                                    </div>
+                                    <div class="sim-list-row">
+                                        <span class="sim-file-name">invoice_set_001.pdf</span><span>1.8 MB</span><span>45</span>
+                                    </div>
+                                    <div class="sim-list-row">
+                                        <span class="sim-file-name">tax_returns_2024.pdf</span><span>2.5 MB</span><span>8</span>
+                                    </div>
+                                </div>
+                                <div class="sim-progress-container">
+                                    <div class="sim-progress-label"><span>Merging Files...</span><span>82%</span></div>
+                                    <div class="sim-progress-bar"><div class="sim-progress-fill" style="width: 82%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-info">
+                        <h4 class="preview-module-name">PDF Engineering Module</h4>
+                        <p class="preview-module-desc">Merge 40+ PDFs into one or split bulk documents in seconds.</p>
+                    </div>
+                </div>
+
+                <!-- Smart Invoice Parser Preview -->
+                <div class="preview-card animate-on-scroll">
+                    <div class="preview-image">
+                        <div class="sim-ui">
+                            <div class="sim-titlebar">
+                                <span class="sim-window-label">Smart Invoice Parser</span>
+                                <div class="sim-window-tools">
+                                    <div class="sim-dot r"></div><div class="sim-dot y"></div><div class="sim-dot g"></div>
+                                </div>
+                            </div>
+                            <div class="sim-sidebar">
+                                <div class="sim-sidebar-icon active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div>
+                            </div>
+                            <div class="sim-main">
+                                <div class="sim-header-row">
+                                    <div class="sim-btn-mock blue">Extract Content</div>
+                                    <div class="sim-status-pill blue">Processing...</div>
+                                </div>
+                                <div class="sim-excel-view">
+                                    <div class="sim-excel-header">
+                                        <div class="sim-excel-cell">#</div>
+                                        <div class="sim-excel-cell">Inv No</div>
+                                        <div class="sim-excel-cell">Date</div>
+                                        <div class="sim-excel-cell">Total</div>
+                                    </div>
+                                    <div class="sim-excel-row active">
+                                        <div class="sim-excel-cell">1</div>
+                                        <div class="sim-excel-cell">MTS-882</div>
+                                        <div class="sim-excel-cell">12 Apr</div>
+                                        <div class="sim-excel-cell">₹12,450</div>
+                                    </div>
+                                    <div class="sim-excel-row">
+                                        <div class="sim-excel-cell">2</div>
+                                        <div class="sim-excel-cell">ABC-001</div>
+                                        <div class="sim-excel-cell">10 Apr</div>
+                                        <div class="sim-excel-cell">₹4,200</div>
+                                    </div>
+                                    <div class="sim-excel-row">
+                                        <div class="sim-excel-cell">3</div>
+                                        <div class="sim-excel-cell">INV-45</div>
+                                        <div class="sim-excel-cell">09 Apr</div>
+                                        <div class="sim-excel-cell">₹98,000</div>
+                                    </div>
+                                </div>
+                                <div class="sim-progress-container">
+                                    <div class="sim-progress-label"><span>Identifying GSTIN...</span><span>45%</span></div>
+                                    <div class="sim-progress-bar"><div class="sim-progress-fill" style="width: 45%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-info">
+                        <h4 class="preview-module-name">Smart Invoice Parser</h4>
+                        <p class="preview-module-desc">Extract invoice data directly into structured Excel spreadsheets.</p>
+                    </div>
+                </div>
+
+                <!-- CMA / DPR Builder Preview -->
+                <div class="preview-card animate-on-scroll">
+                    <div class="preview-image">
+                        <div class="sim-ui">
+                            <div class="sim-titlebar">
+                                <span class="sim-window-label">CMA / DPR Builder</span>
+                                <div class="sim-window-tools">
+                                    <div class="sim-dot r"></div><div class="sim-dot y"></div><div class="sim-dot g"></div>
+                                </div>
+                            </div>
+                            <div class="sim-sidebar">
+                                <div class="sim-sidebar-icon active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+                            </div>
+                            <div class="sim-main">
+                                <div class="sim-header-row">
+                                    <div class="sim-btn-mock blue">Generate Report</div>
+                                    <div class="sim-btn-mock">Audit View</div>
+                                </div>
+                                <div class="sim-grid-mock">
+                                    <div class="sim-grid-cell"></div><div class="sim-grid-cell"></div><div class="sim-grid-cell"></div><div class="sim-grid-cell"></div>
+                                    <div class="sim-grid-cell"></div><div class="sim-grid-cell"></div><div class="sim-grid-cell"></div><div class="sim-grid-cell"></div>
+                                    <div class="sim-grid-cell"></div><div class="sim-grid-cell"></div><div class="sim-grid-cell"></div><div class="sim-grid-cell"></div>
+                                </div>
+                                <div class="sim-progress-container">
+                                    <div class="sim-progress-label"><span>Exporting to Word...</span><span>100%</span></div>
+                                    <div class="sim-progress-bar"><div class="sim-progress-fill" style="width: 100%; background: var(--accent-emerald);"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-info">
+                        <h4 class="preview-module-name">CMA / DPR Builder</h4>
+                        <p class="preview-module-desc">Professional financial projections and bank-ready audit reports.</p>
+                    </div>
+                </div>
+
+                <!-- Digital Signature Preview -->
+                <div class="preview-card animate-on-scroll">
+                    <div class="preview-image">
+                        <div class="sim-ui">
+                            <div class="sim-titlebar">
+                                <span class="sim-window-label">DSC Signing Portal</span>
+                                <div class="sim-window-tools">
+                                    <div class="sim-dot r"></div><div class="sim-dot y"></div><div class="sim-dot g"></div>
+                                </div>
+                            </div>
+                            <div class="sim-sidebar">
+                                <div class="sim-sidebar-icon active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                            </div>
+                            <div class="sim-main" style="justify-content: center; align-items: center; border: 1px dashed var(--border-accent); border-radius: 8px; margin: 16px;">
+                                <div style="text-align: center;">
+                                    <div style="width: 32px; height: 32px; background: var(--accent-primary-glow); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                    </div>
+                                    <div style="font-size: 0.65rem; color: var(--text-primary); font-weight: 600;">DSC Token Connected</div>
+                                    <div style="font-size: 0.55rem; color: var(--text-tertiary); margin-top: 4px;">Ready to sign 12 files</div>
+                                </div>
+                            </div>
+                            <div class="sim-main" style="flex: 0; padding-top: 0;">
+                                <div class="sim-btn-mock blue" style="justify-content: center;">Sign All Documents</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-info">
+                        <h4 class="preview-module-name">Digital Signature Module</h4>
+                        <p class="preview-module-desc">Bulk sign documents securely with your DSC token hooks.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ================================================================
+         SECTION 10: FAQ
+         ================================================================ -->
+    <section class="section" id="faq">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-label">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    FAQ
+                </div>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Common questions about CA Office PDF Utility.</p>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item animate-on-scroll">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Is this software fully offline?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">Yes. CA Office PDF Utility is designed to work entirely offline. All PDF processing, invoice parsing, CMA report generation, and digital signing happen locally on your computer. No internet connection is required for any core functionality.</div>
+                    </div>
+                </div>
+
+                <div class="faq-item animate-on-scroll">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Does it upload my files anywhere?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">No. Your files are never uploaded to any server or cloud service. All document processing is performed locally on your machine. This is especially important for CA offices handling sensitive client financial data and confidential documents.</div>
+                    </div>
+                </div>
+
+                <div class="faq-item animate-on-scroll">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Is it suitable for CA firms and tax offices?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">Absolutely. The software is specifically designed for Chartered Accountants, tax consultants, audit firms, and accounting professionals. Every module addresses real-world document challenges that CA offices face daily — from invoice processing to CMA report generation.</div>
+                    </div>
+                </div>
+
+                <div class="faq-item animate-on-scroll">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Can I use it for bulk invoice handling?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">Yes. The Smart Invoice Parser module is built for bulk operations. You can process multiple invoice PDFs at once, extracting key fields like invoice numbers, dates, GSTIN, tax amounts, and totals into structured Excel reports — saving hours of manual data entry.</div>
+                    </div>
+                </div>
+
+                <div class="faq-item animate-on-scroll">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Does it support DSC (Digital Signature Certificate) signing?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">Yes. The Digital Signature module supports bulk document signing using your DSC token. You can configure stamp placement, manage signing workflows, and process large batches of documents securely — ideal for audit reports, financial statements, and compliance filings.</div>
+                    </div>
+                </div>
+
+                <div class="faq-item animate-on-scroll">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        How do I install and activate the software?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">Download the ZIP file, extract it to any folder on your Windows computer, and run the application. No complex installation process is required. For detailed steps, please refer to the <a href="docs/install-guide.html" style="color:var(--accent-primary);">Installation Guide</a>.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 11: CONTACT / SUPPORT CTA
+         ================================================================ -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-label">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    Get In Touch
+                </div>
+                <h2 class="section-title">Need Help or Have Questions?</h2>
+                <p class="section-subtitle">Our support team is ready to assist you with installation, licensing, or product inquiries.</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-card animate-on-scroll">
+                    <div class="contact-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </div>
+                    <h3 class="contact-card-title">Email Support</h3>
+                    <p class="contact-card-desc">Reach out for technical support, feature requests, or general product inquiries.</p>
+                    <a href="mailto:support.marutitechsolutions@gmail.com" class="contact-card-link">
+                        support.marutitechsolutions@gmail.com
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                </div>
+
+                <div class="contact-card animate-on-scroll">
+                    <div class="contact-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </div>
+                    <h3 class="contact-card-title">Direct Assistance</h3>
+                    <p class="contact-card-desc">For urgent support or product demonstrations, connect with us directly.</p>
+                    <a href="tel:8690086187" class="contact-card-link">
+                        +91 8690086187
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 12: FOOTER
+         ================================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand-area">
+                    <div class="footer-logo-row">
+                        <img src="assets/images/logo.png" alt="CA Office PDF Utility" class="footer-logo">
+                        <span class="footer-brand-name">CA Office <span>PDF Utility</span></span>
+                    </div>
+                    <p class="footer-brand-desc">Secure offline automation suite designed for Chartered Accountants, tax professionals, and audit offices. Process documents locally with complete privacy.</p>
+                </div>
+
+                <div>
+                    <div class="footer-col-title">Product</div>
+                    <ul class="footer-links">
+                        <li><a href="#modules">Features</a></li>
+                        <li><a href="#usecases">Use Cases</a></li>
+                        <li><a href="#preview">Screenshots</a></li>
+                        <li><a href="#download">Download</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="footer-col-title">Resources</div>
+                    <ul class="footer-links">
+                        <li><a href="docs/install-guide.html">Installation Guide</a></li>
+                        <li><a href="release-notes.html">Release Notes</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="footer-col-title">Support</div>
+                    <ul class="footer-links">
+                        <li><a href="mailto:support.marutitechsolutions@gmail.com">Email Support</a></li>
+                        <li><a href="tel:8690086187">+91 8690086187</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2026 CA Office PDF Utility. Developed by CA Bhavesh Lunagariya. All rights reserved.</span>
+                <div class="footer-badges">
+                    <span class="footer-badge">Built for Windows</span>
+                    <span class="footer-badge">Secure Offline Utility</span>
+                    <span class="footer-badge">v1.1.2</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================================================================
+         SCRIPTS
+         ================================================================ -->
+    <script>
+        // ── Release URLs ──
+        const RELEASE_BASE = 'https://github.com/marutitechsolutions/ca-office-utility/releases/download/latest';
+        const WIN_URL = RELEASE_BASE + '/CA_Office_Utility_Windows.zip';
+        const MAC_URL = RELEASE_BASE + '/CA_Office_Utility_Mac.zip';
+
+        // ── OS Detection ──
+        function detectOS() {
+            const ua = navigator.userAgent;
+            if (/Mac/i.test(ua)) return 'MacOS';
+            if (/Win/i.test(ua)) return 'Windows';
+            return 'Other';
+        }
+
+        const os = detectOS();
+        const primaryDl = document.getElementById('primary-dl');
+        const dlText = document.getElementById('dl-text');
+        const heroDownloadBtn = document.getElementById('hero-download-btn');
+        const downloadTitle = document.getElementById('download-title');
+        const downloadSubtitle = document.getElementById('download-subtitle');
+        const downloadFormat = document.getElementById('download-format');
+
+        if (os === 'MacOS') {
+            primaryDl.href = MAC_URL;
+            dlText.innerText = 'Download for macOS (ZIP)';
+            heroDownloadBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download for macOS';
+            downloadTitle.innerText = 'Download for macOS';
+            downloadFormat.innerText = 'macOS ZIP';
+        } else if (os === 'Windows') {
+            primaryDl.href = WIN_URL;
+            dlText.innerText = 'Download for Windows (ZIP)';
+            downloadTitle.innerText = 'Download for Windows';
+            downloadFormat.innerText = 'Windows ZIP';
+        } else {
+            primaryDl.href = WIN_URL;
+            dlText.innerText = 'Download for Windows (ZIP)';
+            downloadTitle.innerText = 'Download Application';
+        }
+
+        // ── Navbar Scroll Effect ──
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 40);
+        });
+
+        // ── Mobile Menu Toggle ──
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const navLinks = document.getElementById('nav-links');
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+
+        // Close mobile menu on link click
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // ── FAQ Accordion ──
+        function toggleFaq(button) {
+            const item = button.parentElement;
+            const isActive = item.classList.contains('active');
+
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Toggle current
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // ── Scroll Animations ──
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ── Smooth scroll for anchor links ──
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
