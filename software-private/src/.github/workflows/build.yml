@@ -38,11 +38,23 @@ jobs:
 
       - name: Upload to Public Repository
         if: success()
+        shell: pwsh
         run: |
-          echo "Starting upload to marutitechsolutions/ca-office-utility..."
-          # Try upload first, then fallback to create if missing
-          gh release upload v1.1.2 dist/CA_Office_PDF_Utility_v1.1.2.zip --repo marutitechsolutions/ca-office-utility --clobber || \
-          gh release create v1.1.2 dist/CA_Office_PDF_Utility_v1.1.2.zip --repo marutitechsolutions/ca-office-utility --title "v1.1.2 Production Release" --notes "Official stabilized build."
+          Write-Host "Verifying dist contents..."
+          Get-ChildItem -Path dist/
+          $ZIP_FILE = "dist/CA_Office_PDF_Utility_v1.1.2.zip"
+          if (Test-Path $ZIP_FILE) {
+            Write-Host "Uploading $ZIP_FILE to marutitechsolutions/ca-office-utility..."
+            # Try upload, then create if missing
+            $err = gh release upload v1.1.2 $ZIP_FILE --repo marutitechsolutions/ca-office-utility --clobber 2>&1
+            if ($LASTEXITCODE -ne 0) {
+              Write-Host "Initial upload failed or release missing. Attempting creation..."
+              gh release create v1.1.2 $ZIP_FILE --repo marutitechsolutions/ca-office-utility --title "v1.1.2 Production Release" --notes "Official stabilized build."
+            }
+          } else {
+            Write-Error "Build artifact missing: $ZIP_FILE"
+            exit 1
+          }
         env:
           GH_TOKEN: ${{ secrets.REPO_SYNC_TOKEN }}
 
@@ -78,8 +90,8 @@ jobs:
       - name: Upload to Public Repository (Mac)
         if: success()
         run: |
-          echo "Starting upload (Mac) to marutitechsolutions/ca-office-utility..."
-          gh release upload v1.1.2 dist/CA_Office_PDF_Utility_v1.1.2.zip --repo marutitechsolutions/ca-office-utility --clobber || \
-          gh release create v1.1.2 dist/CA_Office_PDF_Utility_v1.1.2.zip --repo marutitechsolutions/ca-office-utility --title "v1.1.2 Production Release" --notes "Official stabilized build (macOS)."
+          echo "Uploading (Mac) to marutitechsolutions/ca-office-utility..."
+          # Atomic single-line Bash command for the Mac/Linux runner
+          gh release upload v1.1.2 dist/CA_Office_PDF_Utility_v1.1.2.zip --repo marutitechsolutions/ca-office-utility --clobber || gh release create v1.1.2 dist/CA_Office_PDF_Utility_v1.1.2.zip --repo marutitechsolutions/ca-office-utility --title "v1.1.2 Production Release" --notes "Official stabilized build (macOS)."
         env:
           GH_TOKEN: ${{ secrets.REPO_SYNC_TOKEN }}
