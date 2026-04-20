@@ -920,8 +920,15 @@ class WordGeneratorService:
             row = table.add_row().cells
             row[0].text = label
             for i, p in enumerate(projections):
-                if key == "net_cf": val = p['cash_accruals'] - p['tl_repayment']
-                else: val = p.get(key, 0)
+                # Use .get() for safety and recalculate net_cf if it's based on tl_repayment
+                ca = p.get('cash_accruals', 0)
+                tlr = p.get('tl_repayment', 0)
+                
+                if key == "net_cf": 
+                    val = ca - tlr
+                else: 
+                    val = p.get(key, 0)
+                
                 row[i+1].text = cls._fmt_val(val)
 
     @classmethod
