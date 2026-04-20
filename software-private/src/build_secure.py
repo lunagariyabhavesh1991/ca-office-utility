@@ -185,8 +185,8 @@ def main():
         create_secure_zip(dest_path, zip_path)
         
         print(f"\nSUCCESS! Build complete.")
-        print(f"📁 Build Folder: {dest_path}")
-        print(f"📦 Release ZIP: {zip_path}")
+        print(f"Build Folder: {dest_path}")
+        print(f"Release ZIP: {zip_path}")
     else:
         print(f"Error: Build folder not found at {final_output}")
 
