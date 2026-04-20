@@ -899,9 +899,7 @@ class ProjectionEngineService:
             
             "rounding_diff": rounding_diff,
             "dscr": (ad.net_profit + ad.depreciation) / (ad.interest_paid + (ad.term_loans/5.0)) if (ad.interest_paid + ad.term_loans) > 0 else 2.0,
-            "current_ratio": ad.current_assets / ad.current_liabilities if (ad.current_liabilities or 0) > 0 else 2.0,
-            "tl_repayment": 0.0, # Historical repayment typically not tracked in CMA base
-            "cash_accruals": (ad.net_profit or 0) + (ad.depreciation or 0)
+            "current_ratio": ad.current_assets / ad.current_liabilities if (ad.current_liabilities or 0) > 0 else 2.0
         }
 
     @staticmethod
@@ -924,9 +922,7 @@ class ProjectionEngineService:
             "wc_loan_bal": sd.borrowing_estimate * 0.6,
             "creditors": sd.creditors_estimate,
             "total_assets": sd.fixed_assets_estimate + sd.receivables_estimate + sd.inventory_estimate + sd.cash_bank_estimate,
-            "total_liabilities": sd.fixed_assets_estimate + sd.receivables_estimate + sd.inventory_estimate + sd.cash_bank_estimate,
-            "tl_repayment": 0.0,
-            "cash_accruals": np + (rev * 0.02) # PAT + estimated depr
+            "total_liabilities": sd.fixed_assets_estimate + sd.receivables_estimate + sd.inventory_estimate + sd.cash_bank_estimate
         }
     @classmethod
     def get_summary_ratios(cls, project: CmaProject) -> Dict[str, Any]:
