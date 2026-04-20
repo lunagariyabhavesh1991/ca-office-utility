@@ -10,6 +10,7 @@ from ui.theme import Theme
 from ui.components import NavButton, InstructionDialog
 import threading
 import time
+import json
 
 # SET TO False to hide Advanced modules (Standard Version)
 IS_PREMIUM_BUILD = True
@@ -38,6 +39,10 @@ class AppWindow(TkinterDnDApp):
         self.content_frame = None
         self.nav_buttons = {}
         self.seat_manager = None # Replaces license_server and license_client
+        self.version = "v1.1.2"
+        self.build_time = "Unknown"
+        
+        self._load_build_info()
         
         # Maximize window on startup
         self.after(200, lambda: self._maximize_window())
@@ -156,6 +161,19 @@ class AppWindow(TkinterDnDApp):
                                     font=ctk.CTkFont(family=Theme.FONT_FAMILY, size=12, weight="bold"),
                                     text_color=Theme.TEXT_PRIMARY)
         branding_lbl.pack(side="top", pady=(10, 0))
+
+        # Version and Build Info
+        version_lbl = ctk.CTkLabel(self.bottom_sidebar, 
+                                   text=f"Version: {self.version}", 
+                                   font=ctk.CTkFont(family=Theme.FONT_FAMILY, size=10),
+                                   text_color=Theme.TEXT_MUTED)
+        version_lbl.pack(side="top", pady=(2, 0))
+        
+        build_lbl = ctk.CTkLabel(self.bottom_sidebar, 
+                                 text=f"Build: {self.build_time}", 
+                                 font=ctk.CTkFont(family=Theme.FONT_FAMILY, size=9),
+                                 text_color=Theme.TEXT_MUTED)
+        build_lbl.pack(side="top", pady=(0, 5))
         
         # 3. Main Navigation (Scrollable)
         self.nav_scroll = ctk.CTkScrollableFrame(self.sidebar_frame, fg_color="transparent", corner_radius=0)
@@ -315,3 +333,15 @@ class AppWindow(TkinterDnDApp):
         except:
             pass
         self.destroy()
+
+    def _load_build_info(self):
+        """Loads version and build timestamp from assets/build_info.json"""
+        try:
+            info_path = FileManager.get_resource_path(os.path.join("assets", "build_info.json"))
+            if os.path.exists(info_path):
+                with open(info_path, 'r') as f:
+                    data = json.load(f)
+                    self.version = data.get("version", "v1.1.2")
+                    self.build_time = data.get("build_time", "Unknown")
+        except Exception as e:
+            print(f"Failed to load build info: {e}")
