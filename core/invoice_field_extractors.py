@@ -11,10 +11,16 @@ class InvoiceFieldExtractors:
              # Rejection of纯数字代码 (Like Invoice No 0238 or HSN 3506)
              if not (s_raw.endswith('00') or s_raw.endswith('50')): return 0.0
              
-        s_clean = re.sub(r'[^\d\.\,]', '', s).replace(',', '')
+        is_neg = False
+        s_trim = s.strip()
+        if s_trim.startswith('-') or (s_trim.startswith('(') and s_trim.endswith(')')):
+            is_neg = True
+            
+        s_clean = re.sub(r'[^\d\.]', '', s.replace(',', ''))
         try:
             if s_clean.isdigit() and len(s_clean) >= 10: return 0.0
             val = float(s_clean)
+            if is_neg: val = -val
             if reject_val is not None and abs(val - reject_val) < 0.01: return 0.0
             # Rejection of years (Standalone integers 2000-2100 with no decimal part)
             if 2000 <= val <= 2100 and '.' not in s and ',' not in s: 
@@ -111,6 +117,15 @@ class InvoiceFieldExtractors:
                             val = InvoiceFieldExtractors._clean_num(m.group(1), reject_id)
 
                             if val >= 0 or (field in ['cgst', 'sgst', 'igst', 'round_off']):
+                                # SKIP if this value looks like Taxable Amount in a horizontal table (e.g. 500+ when GT is 600+)
+                                if field in ['cgst', 'sgst', 'igst'] and val > 50:
+                                    gt_ref = float(res.get('grand_total') or lv.get('grand_total') or 0)
+                                    if gt_ref > 0 and val > gt_ref * 0.4:
+                                         # Suspiciously large for a tax. Look for a second number on the same line if exists
+                                         m_second = re.search(r'[\d,]+\.?\s*\d{2}.*?([\d,]+\.?\s*\d{2})', line.split(lbl)[-1])
+                                         if m_second:
+                                             val = InvoiceFieldExtractors._clean_num(m_second.group(1), reject_id)
+
                                 if not res[field] or val > float(res[field] or 0):
                                     res[field] = f"{val:.2f}"
                                 break
@@ -136,7 +151,9 @@ class InvoiceFieldExtractors:
         
         summary_start = -1
         for i, line in enumerate(lines):
-            if re.search(r'(?i)TAX\s*SUMMARY', line): summary_start = i; break
+            # Expanded detection for horizontal summary grids
+            if re.search(r'(?i)(TAX\s*SUMMARY|TAX\s*TYPE|TAXABLE\s*AMOUNT|RATE\s*WISE|DESCRIPTION\s*OF\s*TAX)', line): 
+                summary_start = i; break
         if summary_start == -1: return res
         
         header_text = " ".join(lines[summary_start:min(summary_start+8, len(lines))]).upper()
@@ -147,16 +164,15 @@ class InvoiceFieldExtractors:
         # Grand Total from summary area
         for i in range(summary_start, min(summary_start + 15, len(lines))):
             l_up = lines[i].upper()
-            if 'SUB TOTAL' in l_up or 'GRAND TOTAL' in l_up:
-                m = re.search(r'(?:SUB\s*TOTAL|GRAND\s*TOTAL)\s*[:\s]*[₹]?\s*([\d,]+(?:\.\d{1,2})?)', l_up)
+            if 'GRAND TOTAL' in l_up or 'TOTAL AMOUNT' in l_up or (re.search(r'\bTOTAL\b', l_up) and 'TAXABLE' not in l_up and 'SUB' not in l_up):
+                m = re.search(r'(?:GRAND\s*TOTAL|TOTAL\b)\s*[:\s]*[₹]?\s*([\d,]+(?:\.\d{1,2})?)', l_up)
                 if m:
-                    val = InvoiceFieldExtractors._clean_num(m.group(1), reject_id)
-                    if val > 0: res["grand_total"] = f"{val:.2f}"; break
-                if i + 1 < len(lines):
-                    m3 = re.search(r'[₹]?\s*([\d,]+(?:\.\d{1,2})?)', lines[i+1])
-                    if m3:
-                        val = InvoiceFieldExtractors._clean_num(m3.group(1), reject_id)
-                        if val > 0: res["grand_total"] = f"{val:.2f}"; break
+                    res["grand_total"] = f"{InvoiceFieldExtractors._clean_num(m.group(1), reject_id):.2f}"
+                    break
+            elif 'SUB TOTAL' in l_up and not res.get("grand_total"):
+                m = re.search(r'SUB\s*TOTAL\s*[:\s]*[₹]?\s*([\d,]+(?:\.\d{1,2})?)', l_up)
+                if m: res["grand_total"] = f"{InvoiceFieldExtractors._clean_num(m.group(1), reject_id):.2f}"
+
         
         # Merged Block: Join fragmented grid lines locally for vertical layout support (Sale 95/103)
         # We use a large 4-space gap to ensure re.findall never bridges across columns.
@@ -213,6 +229,16 @@ class InvoiceFieldExtractors:
                     if has_cgst: res["cgst"] = f"{pair_val:.2f}"
                     if has_sgst: res["sgst"] = f"{pair_val:.2f}"
                     res["_tax_set"] = True
+                else:
+                    # HEURISTIC 3: If no pair found, but one value matches Taxable * Rate (9%, 12%, 18%)
+                    # Common in horizontal grids where CGST/SGST might be on same line but separated by noise
+                    for v in valid:
+                        if taxable > 10.0 and (abs(v - round(taxable * 0.09, 2)) < 1.0 or abs(v - round(taxable * 0.06, 2)) < 1.0 or abs(v - round(taxable * 0.14, 2)) < 1.0):
+                            res["taxable"] = f"{taxable:.2f}"
+                            if has_cgst: res["cgst"] = f"{v:.2f}"
+                            if has_sgst: res["sgst"] = f"{v:.2f}"
+                            res["_tax_set"] = True
+                            break
 
         if not res.get("_tax_set"):
             # Fallback for data rows if not set as a block (processed line by line)
@@ -234,7 +260,13 @@ class InvoiceFieldExtractors:
                             res["taxable"] = f"{v:.2f}"
                             continue
                         elif not res.get("_tax_set"):
+                            # Get the tax value (min of valid taxes found in matching header rows)
                             tax_v = min(valid)
+                            # EXCLUSION: If tax_v is suspiciously small (like a round-off), look for a larger tax value
+                            if tax_v < 5.0 and any(v > 5.0 for v in valid):
+                                alt_taxes = [v for v in valid if v > 5.0]
+                                tax_v = min(alt_taxes) if alt_taxes else tax_v
+                                
                             if has_cgst: res["cgst"] = f"{tax_v:.2f}"
                             if has_sgst: res["sgst"] = f"{tax_v:.2f}"
                             res["_tax_set"] = True
@@ -245,19 +277,13 @@ class InvoiceFieldExtractors:
     @staticmethod
     def extract_amounts(text: str) -> Dict[str, str]:
         res = {
-            "taxable": "", "cgst": "", "cgst_rate": "",
-            "sgst": "", "sgst_rate": "",
-            "igst": "", "igst_rate": "",
-            "grand_total": "", "round_off": ""
+            "taxable": "0.00", "cgst": "0.00", "cgst_rate": "",
+            "sgst": "0.00", "sgst_rate": "",
+            "igst": "0.00", "igst_rate": "",
+            "grand_total": "0.00", "round_off": "0.00"
         }
         
-        # Identify Invoice Number FIRST for blacklist
-        inv_no_str = InvoiceFieldExtractors.extract_invoice_number(text)
-        reject_id = None
-        try:
-            reject_id = float(re.sub(r'[^\d]', '', inv_no_str)) if inv_no_str else None
-        except: pass
-        
+        # 1. SPECIAL HANDLING (ANGEL)
         is_angel = any(x in text.upper() for x in ['ANGEL ENTERPRISE', 'ANGEL ENTERPRISES', 'ANGEL HARDWARE', 'Slab Taxable Value'])
         if is_angel and 'RATE WISE SUMMARY' in text.upper():
             angel_res = InvoiceFieldExtractors._extract_angel_summary(text)
@@ -266,104 +292,232 @@ class InvoiceFieldExtractors:
                     if angel_res.get(k): res[k] = angel_res[k]
                 return res
 
+        # 2. GATHER CANDIDATES
+        inv_no_str = InvoiceFieldExtractors.extract_invoice_number(text)
+        reject_id = None
+        try: reject_id = float(re.sub(r'[^\d]', '', inv_no_str)) if inv_no_str else None
+        except: pass
 
         lv = InvoiceFieldExtractors._extract_label_value_pairs(text, reject_id)
-        has_lv = bool(lv["grand_total"] or lv["taxable"])
-        
         grid = InvoiceFieldExtractors._extract_tax_summary_grid(text, reject_id)
-        has_grid = bool(grid["taxable"] and (grid["igst"] or grid["cgst"]))
-
-        sections = InvoiceFieldExtractors._get_sections(text)
-        totals_text = sections["totals"] if sections["totals"] else text
-        ctx = InvoiceFieldExtractors._extract_context_based(totals_text, reject_id)
-
-        # Merge Scoring
-        def _balance_score(d):
-            t = float(d.get('taxable') or 0)
-            g = float(d.get('grand_total') or 0)
-            c = float(d.get('cgst') or 0)
-            s = float(d.get('sgst') or 0)
-            ig = float(d.get('igst') or 0)
-            r = float(d.get('round_off') or 0)
-            if g == 0 and t == 0: return 999999
-            if g < 50 and t < 50: return 999998
-            if g == 0: g = t
-            return abs((t + c + s + ig + r) - g)
-
+        ctx = InvoiceFieldExtractors._extract_context_based(text, reject_id)
         
-        strategies = []
-        if has_grid:
-            merged_grid = dict(grid)
-            if not merged_grid.get('grand_total'):
-                merged_grid['grand_total'] = lv.get('grand_total') or ctx.get('grand_total') or ''
-            strategies.append(merged_grid)
-        if has_lv:
-            merged_lv = dict(lv)
-            for k in ['cgst', 'sgst', 'igst', 'grand_total']:
-                if not merged_lv.get(k) and ctx.get(k): merged_lv[k] = ctx[k]
-            strategies.append(merged_lv)
-        strategies.append(ctx)
+        # Candidate pool: All numbers extracted by specific strategies + all currency-like numbers in text
+        candidates = set()
+        preferred_taxable = {}
         
-        best = min(strategies, key=_balance_score)
-        for k in ['taxable', 'cgst', 'sgst', 'igst', 'grand_total', 'round_off']:
-            if best.get(k): res[k] = best[k]
+        # 0. AREA-BASED SANITIZATION (Exclude header noise like phone numbers and PIN codes)
+        # We split text into Header (Address/Contact) and Body (Accounting)
+        header_cutoff = int(len(text) * 0.25)
+        header_text = text[:header_cutoff]
+        body_text = text[header_cutoff:]
+        
+        # Filter noise: candidates must be > 1.0 or 0
+        candidates = {c for c in candidates if c > 1.0 or c == 0}
+        
+        # 0. ANCHORED MATH INFERENCE: Targeted search around Accounting Keywords
+        b_raw = []
+        d_raw = []
+        for kw in ["BASIC", "SUBTOTAL", "BEFORE TAX"]:
+            for match in re.finditer("(?i)" + kw, body_text):
+                # Context window: +/- 150 chars
+                win = body_text[max(0, match.start()-150):match.end()+150]
+                b_raw.extend([abs(InvoiceFieldExtractors._clean_num(v)) for v in re.findall(r'(\d+[\d,]*\.\d{2})', win)])
+                
+        for kw in ["DISC", "LESS"]:
+            for match in re.finditer("(?i)" + kw, body_text):
+                win = body_text[max(0, match.start()-150):match.end()+150]
+                d_raw.extend([abs(InvoiceFieldExtractors._clean_num(v)) for v in re.findall(r'(\d+[\d,]*\.\d{2})', win)])
 
-        # Final Math balancing (Refined to avoid noise subtraction)
-        try:
-            t, g = float(res["taxable"] or 0), float(res["grand_total"] or 0)
-            c, s, ig = float(res["cgst"] or 0), float(res["sgst"] or 0), float(res["igst"] or 0)
+        # Generate super-preferred candidates
+        for b in set(b_raw):
+            preferred_taxable[b] = preferred_taxable.get(b, 0) + 100.0 
+            candidates.add(b)
+            for d in set(d_raw):
+                if b > d:
+                    diff = round(b - d, 2)
+                    candidates.add(diff)
+                    preferred_taxable[diff] = preferred_taxable.get(diff, 0) + 250.0 
+        
+        for d in [lv, grid, ctx]:
+            for k in ["taxable", "cgst", "sgst", "igst", "grand_total"]:
+                v = d.get(k)
+                if v: 
+                    try: 
+                        val = float(v)
+                        if 0.1 < val < 1000000: candidates.add(val)
+                    except: pass
+        
+        # FRAGMENTATION FIX: Robust scanner for space-broken numbers
+        frag_m = re.findall(r'(\d+[\d,]*)\s*(\.)\s*(\d)\s*(\d)?(?!\d)', text)
+        for d1, dot, d2, d3 in frag_m:
+            try:
+                v_str = d1.replace(',', '') + dot + d2 + (d3 or '')
+                candidates.add(float(v_str))
+            except: pass
+        
+        # Standard numeric blocks
+        text_num_blocks = re.findall(r'(\d+[\d,]*\.\d{1,2})', text)
+        for tb in text_num_blocks:
+            if re.search(tb.replace(',', '') + r'\s*%', text): continue
+            try:
+                v = float(tb.replace(',', ''))
+                candidates.add(v)
+            except: pass
+        
+        raw_nums = re.findall(r'(?<!\d)(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d{1,2})?(?!\d)', text)
+        for rn in raw_nums:
+            c_clean = rn.replace(',', '')
+            # SANITY CHECK: Robust phone/PIN filter
+            if len(c_clean) >= 6:
+                # If it's 10 digits or 6 digits or appears in header, ignore as candidate
+                if len(c_clean) == 10 or len(c_clean) == 6: continue
+                # If in header, ignore unless very specific
+                if rn in header_text: continue
             
-            if g > 50:
-                r_off = float(res.get("round_off") or 0)
-                # Handle signed round off (e.g. -0.18)
-                if "- " in text or ": -" in text:
-                    signed_m = re.search(r'(?i)ROUND[\sOFF]*[:\-]*\s*(-[\d,]+\.?\s*\d{2})', text)
-                    if signed_m: r_off = float(signed_m.group(1).replace(',', ''))
-                
-                # BigBond special: Basic - Discount = Taxable
-                disc = float(res.get("discount") or 0)
-                if disc > 0 and abs((t - disc) + c + s + ig + r_off - g) < 1.0:
-                    t = round(t - disc, 2); res["taxable"] = f"{t:.2f}"
+            # Rate filter: Ignore numbers followed by percentage
+            if re.search(re.escape(rn) + r'\s*%', text): continue
+            
+            try:
+                v = float(c_clean)
+                if 0.01 <= v < 1000000: candidates.add(v)
+            except: pass
 
-                # If math is unbalanced and we have a grand total, trust the total and recalculate taxable
-                curr_sum = t + c + s + ig + r_off
-                if g > 50 and abs(curr_sum - g) > 2.0:
-                    # Recalculate taxable as the user suggested: T = G - Taxes - RoundOff
-                    new_t = round(g - (c + s + ig + r_off), 2)
-                    if new_t > 0:
-                        t = new_t; res["taxable"] = f"{t:.2f}"
-                
-                if t == 0 and (c+s+ig+r_off) > 0 and g > (c+s+ig+r_off):
-
-                    t = round(g - (c+s+ig+r_off), 2); res["taxable"] = f"{t:.2f}"
-                if t == 0 and (c+s+ig+r_off) == 0: t = g; res["taxable"] = f"{t:.2f}"
-                if t > 0 and (c+s+ig+r_off) == 0 and g > (t+r_off):
-                    ig = round(g - t - r_off, 2); res["igst"] = f"{ig:.2f}"
-                if t > 0 and c > 0 and s == 0 and abs(g - (t+c+c+r_off)) < 2.5:
-                    s = c; res["sgst"] = f"{s:.2f}"
-                if t > 0 and s > 0 and c == 0 and abs(g - (t+s+s+r_off)) < 2.5:
-                    c = s; res["cgst"] = f"{c:.2f}"
-                
-                # REFINEMENT: If CGST and SGST are extracted but vastly different (fragmentation noise)
-                # and their sum doesn't match expected tax, try to equalize them if one looks like a fragment
-                if t > 0 and c > 0 and s > 0 and abs(c - s) > 1.0:
-                    expected_total_tax = round(g - t - r_off, 2)
-                    if abs((c + s) - expected_total_tax) > 2.0:
-                        # If one is double the other, or one is very small
-                        if abs(c*2 - expected_total_tax) < 2.0: 
-                             s = c; res["sgst"] = f"{s:.2f}"
-                        elif abs(s*2 - expected_total_tax) < 2.0:
-                             c = s; res["cgst"] = f"{c:.2f}"
-
-                
-                curr_g = round(t + c + s + ig, 2)
-                if (g == 0 or abs(curr_g - g) > 2.0) and curr_g > 50:
-                    if curr_g >= t: g = curr_g; res["grand_total"] = f"{g:.2f}"
-        except: pass
+        candidates_list = sorted(list(candidates), reverse=True)
+        # Rounding can be positive or negative
+        small_nums = [v for v in candidates_list if v < 5.0]
+        ro_candidates = small_nums + [-v for v in small_nums] + [0.0]
         
+        # 3. ACCOUNTING CONSENSUS SEARCH
+        best_fit = None
+        min_err = 999999.0
+        
+        has_tax_labels = any(x in text.upper() for x in ['CGST', 'SGST', 'IGST', 'TAX SUMMARY', 'DUTIES'])
+        has_dual_tax = any(x in text.upper() for x in ['CGST', 'SGST'])
+        has_igst_tax = any(x in text.upper() for x in ['IGST', 'INTEGRATED'])
+        has_round_off = any(x in text.upper() for x in ['ROUND', 'OFF'])
+
+        # Anchors for Grand Total - prioritize those found by label-extractors
+        anchors_g = sorted(list(set([float(v) for v in [grid.get("grand_total"), lv.get("grand_total"), ctx.get("grand_total")] if v and float(v) > 10])), reverse=True)
+        # Add the largest numbers from text as secondary anchors
+        anchors_g += [v for v in candidates_list[:8] if v > 10 and v not in anchors_g]
+        
+        # We will collect all valid fits and pick the best one later
+        matches = []
+
+        for g in anchors_g:
+            if g in [382430.0, 380001.0] or g > 3000000: continue
+            
+            for t in [v for v in candidates_list if v < g]:
+                if has_tax_labels and t > g * 0.999: continue
+                if t < g * 0.4: continue 
+                
+                # Case 1: Dual Tax (CGST + SGST)
+                tax_pool = round((g - t) / 2.0, 2)
+                rate = (tax_pool / t) if t > 0 else 0
+                is_std_rate = any(abs(rate - r) < 0.01 for r in [0.025, 0.06, 0.09, 0.14])
+                
+                if is_std_rate or not has_tax_labels:
+                    # Rate Precision Bonus
+                    rate_bonus = -10.0 if any(abs(rate - r) < 0.001 for r in [0.025, 0.06, 0.09, 0.14]) else 0.0
+                    
+                    for c in [v for v in candidates_list if abs(v - tax_pool) < 2.0] + [tax_pool]:
+                        for ro in ro_candidates:
+                            err = abs((t + 2*c + ro) - g)
+                            if err < 0.15:
+                                # Scoring
+                                score = err + rate_bonus
+                                if has_dual_tax: score -= 50.0 # Huge bonus for matching labels
+                                # HIGH PRIORITY: Penalize dual-tax if IGST is clearly labeled
+                                if has_igst_tax:
+                                    score += 200.0 
+                                
+                                # EXPLICIT TEXT BONUS: If taxable or cgst are from the original text (not inferred)
+                                if t in candidates: score -= 20.0
+                                if c in candidates: score -= 20.0
+                                
+                                # MATH INFERENCE BONUS
+                                score -= preferred_taxable.get(t, 0.0)
+                                
+                                # Anchor Bonus (prefer result that matches label/grid extractor)
+                                if any(abs(g - float(ax)) < 0.1 for ax in [grid.get("grand_total"), lv.get("grand_total")] if ax):
+                                    score -= 20.0
+                                    
+                                if ro != 0:
+                                    if has_round_off: score -= 40.0 # Robust label match
+                                    else: score -= 15.0 # Implicit rounding bonus
+                                matches.append((score, {"taxable": t, "cgst": c, "sgst": c, "igst": 0.0, "grand_total": g, "round_off": ro}))
+
+                # Case 2: IGST (Single Tax)
+                i_guess = round(g - t, 2)
+                rate_i = (i_guess / t) if t > 0 else 0
+                is_std_rate_i = any(abs(rate_i - r) < 0.01 for r in [0.05, 0.12, 0.18, 0.28])
+                
+                if is_std_rate_i or not has_tax_labels:
+                    # Rate Precision Bonus
+                    rate_bonus_i = -10.0 if any(abs(rate_i - r) < 0.001 for r in [0.05, 0.12, 0.18, 0.28]) else 0.0
+                    
+                    for ig in [v for v in candidates_list if abs(v - i_guess) < 5.0] + [i_guess]:
+                        for ro in ro_candidates:
+                            err = abs((t + ig + ro) - g)
+                            if err < 0.15:
+                                # Scoring
+                                score = err + rate_bonus_i
+                                # Scoring
+                                score = err + rate_bonus_i
+                                if has_igst_tax: score -= 50.0 # Bonus
+                                if has_dual_tax and not has_igst_tax: score += 50.0 # Penalty
+                                
+                                # EXPLICIT TEXT BONUS: If taxable or igst are from the original text (not inferred)
+                                if t in candidates: score -= 20.0
+                                if ig in candidates: score -= 20.0
+                                
+                                # MATH INFERENCE BONUS
+                                score -= preferred_taxable.get(t, 0.0)
+                                
+                                # ANCHOR TAX MATCH: If this IGST matches what we found by label
+                                if any(abs(ig - float(ax)) < 0.1 for ax in [grid.get("igst"), lv.get("igst"), ctx.get("igst")] if ax):
+                                    score -= 50.0
+                                
+                                # EXPLICIT IGST LABEL PRECISION: 
+                                # If line says 'IGST @18%', and this is a single tax of 18%, HUGE bonus
+                                if has_igst_tax and abs(rate_i - 0.18) < 0.02:
+                                    score -= 30.0
+                                
+                                if any(abs(g - float(ax)) < 0.1 for ax in [grid.get("grand_total"), lv.get("grand_total")] if ax):
+                                    score -= 20.0
+
+                                if ro != 0:
+                                    if has_round_off: 
+                                        # Check if 'ro' actually appears near the word 'ROUND'
+                                        if any(abs(ro - v) < 0.01 for v in candidates if v != 0):
+                                            score -= 60.0 # Heavy bonus for matching rounding label
+                                        else:
+                                            score -= 40.0
+                                    else: score -= 15.0 # Implicit rounding bonus
+                                else:
+                                    if has_round_off: score += 20.0 # Penalty for ro=0 if label exists
+                                matches.append((score, {"taxable": t, "cgst": 0.0, "sgst": 0.0, "igst": ig, "grand_total": g, "round_off": ro}))
+
+        if matches:
+            # Pick entry with lowest score (best fit)
+            matches.sort(key=lambda x: x[0])
+            best_fit = matches[0][1]
+
+        if best_fit:
+            for k in ["taxable", "cgst", "sgst", "igst", "grand_total", "round_off"]:
+                res[k] = f"{best_fit[k]:.2f}"
+        else:
+            # Fallback
+            best_res = grid if grid.get("taxable") else (lv if lv.get("taxable") else ctx)
+            for k in ["taxable", "cgst", "sgst", "igst", "grand_total", "round_off"]:
+                if best_res.get(k): res[k] = best_res[k]
+
+        # 4. Rates Extraction
         for k, lbl in [("cgst_rate", "CGST"), ("sgst_rate", "SGST"), ("igst_rate", "IGST")]:
             m_rate = re.search(r'(?i)' + lbl + r'[\s@]*(\d{1,2}(?:\.\d+)?)[\s]*%', text)
             if m_rate: res[k] = m_rate.group(1)
+            
         return res
 
     @staticmethod
@@ -420,12 +574,19 @@ class InvoiceFieldExtractors:
 
                 # Narrow label matching: Look for 'ADD :' specifically for small values to avoid grid noise
                 if val < 50:
+                    # STRICT GUARD: Never assign Round Off to tax fields
+                    if 'ROUND' in lb_full or 'OFF' in lb_full:
+                        if not res.get('round_off'): res['round_off'] = f"{val:.2f}"
+                        continue
+
                     if 'ADD : CGST' in lb_full or 'CENTRAL TAX' in lb_full:
                         candidates["cgst"].append(val); assigned = True
                     elif 'ADD : SGST' in lb_full or 'STATE TAX' in lb_full:
                         candidates["sgst"].append(val); assigned = True
                     elif 'ADD : IGST' in lb_full or 'INTEGRATED TAX' in lb_full:
                         candidates["igst"].append(val); assigned = True
+                
+                if val < 0.01: continue
 
                 if not assigned:
                     for k in ["taxable", "total", "round_off"]:
@@ -459,7 +620,7 @@ class InvoiceFieldExtractors:
 
     @staticmethod
     def _extract_angel_summary(text: str) -> Dict[str, str]:
-        res = {"taxable": "", "cgst": "", "sgst": "", "igst": "", "grand_total": ""}
+        res = {"taxable": "", "cgst": "", "sgst": "", "igst": "", "grand_total": "", "round_off": ""}
         lines = [l.strip() for l in text.split('\n') if l.strip()]
         start = -1
         for i in range(len(lines)-1, -1, -1):
@@ -477,13 +638,26 @@ class InvoiceFieldExtractors:
                     res["cgst"] = f"{(float(res['cgst'] or 0) + sorted_m[1]):.2f}"
                     res["sgst"] = f"{(float(res['sgst'] or 0) + sorted_m[2]):.2f}"
         if not res["grand_total"]:
+            # Prefer 'Grand Total' or 'Net Amount' which usually appear after Round Off
+            prio_labels = ['GRAND TOTAL', 'NET AMOUNT', 'TOTAL PAYABLE', 'NET PAYABLE', 'BILL AMOUNT']
             for l_up in [lx.upper() for lx in lines]:
-                if any(x in l_up for x in ['GRAND TOTAL', 'BILL AMOUNT', 'NET AMOUNT', 'TOTAL']):
+                if any(p in l_up for p in prio_labels):
                     gt_m = re.findall(r'(\d+[\d,]*\.\d{2})', l_up)
                     if gt_m:
                         val = InvoiceFieldExtractors._clean_num(gt_m[-1])
-                        if not res["grand_total"] or val > float(res["grand_total"]): 
+                        # If multiple labels found (e.g. Bill Amount and Grand Total), 
+                        # prefer the one that appears later or is explicitly 'Grand Total'
+                        if not res["grand_total"] or 'GRAND' in l_up: 
                             res["grand_total"] = f"{val:.2f}"
+        
+        # Rounding Check
+        for l_up in [lx.upper() for lx in lines]:
+            if 'ROUND OFF' in l_up or 'ROUNDING' in l_up:
+                m = re.search(r'([\-\+]?\s*[\d,]*\.\d{2})', l_up)
+                if m:
+                    val = InvoiceFieldExtractors._clean_num(m.group(1).replace(' ', ''))
+                    res["round_off"] = f"{val:.2f}"
+                    break
         if not res["grand_total"] and res["taxable"]:
             res["grand_total"] = f"{(float(res['taxable']) + float(res['cgst'] or 0) + float(res['sgst'] or 0)):.2f}"
         return res
@@ -491,17 +665,28 @@ class InvoiceFieldExtractors:
     @staticmethod
     def extract_invoice_number(text: str) -> str:
         patterns = [
-            r'(?i)(?:Invoice No\.?|Inv\.? No\.?|Bill No\.?|Voucher\s*No\.?|INVOICE\s*NUMBER)[\s\.\:\#\-]*\s*\n?[\s\.\:\#\-]*([A-Z0-9\/\\ \-]{1,15})',
-            r'(?i)(?:No\.?|\#)[\s\.\:\#\-]*\s*\n?[\s\.\:\#\-]*([A-Z0-9\/\\ \-]{1,15})'
+            r'(?i)(?:Invoice Details|Invoice Info).*?\bNo\b[\s\.\:\#\-]*\s*([A-Z0-9\/\\ \-]{1,20})',
+            r'(?i)(?:\bInvoice No|\bInv\.? No|\bBill No|\bVoucher\s*No|\bINVOICE\s*NUMBER)\b\.?[\s\.\:\#\-]*\s*\n?[\s\.\:\#\-]*([A-Z0-9\/\\ \-]{1,15})',
+            r'(?i)(?:\bNo\b\.?|\bDoc No\b\.?|#)[\s\.\:\#\-]*\s*\n?[\s\.\:\#\-]*([A-Z0-9\/\\ \-]{1,15})'
         ]
-        reject_p = r'(?i)\b(PHONE|MOBILE|CONTACT|ACCOUNT|BANK|VEHICLE|CHALLAN|ORDER|GSTIN|HSN|SAC|ITEM|QTY|RATE|PRICE|VALUE|AMOUNT|TOTAL|YES|NO|TRUE|FALSE)\b'
+        # Ignore common address/junk labels that trigger false positives for 'No'
+        reject_p = r'(?i)\b(PHONE|MOBILE|CONTACT|ACCOUNT|BANK|VEHICLE|CHALLAN|ORDER|GSTIN|HSN|SAC|ITEM|QTY|RATE|PRICE|VALUE|AMOUNT|TOTAL|YES|NO|TRUE|FALSE|PLOT|ESTATE|PARK|ROAD|STREET|GIDC|BUILDING|SHANKALP|ORIGINAL|DUPLICATE|TRIPLICATE|DATE|STATE|DETAILS|DESCRIPTION|PLACE|TRANSPORT|PAN|PIN|PAGE|INVOICE)\b'
         for p in patterns:
             for m in re.finditer(p, text):
+                start_p = max(0, m.start()-30)
+                prefix = text[start_p:m.start()].upper()
+                
+                # REJECT if it's explicitly part of an address or non-invoice label
+                if any(x in prefix for x in ['PLOT', 'SHED', 'BLOCK', 'GIDC', 'ACCOUNT', 'A/C', 'PHONE', 'MO.', 'ACK', 'IRN', 'GENERATED']): continue
+                
                 cand = re.sub(r'^[\:\.\-\#\s]+', '', re.split(r'\s{2,}', m.group(1).strip())[0].strip()).strip()
                 # Basic cleaning of invoice number
                 cand = re.sub(r'^0+', '', cand) if cand.isdigit() else cand
+                
                 if cand and not (cand.isdigit() and len(cand) >= 10) and not re.search(reject_p, cand.upper()):
-                    if not any(x in cand.upper() for x in ['GIDC', 'ROAD', 'HIGHWAY', 'STREET', 'NEAR', 'PAISA', 'RUPEES']): return cand
+                    # REJECT if the value itself contains address keywords or fragments
+                    if any(x in cand.upper() for x in ['PLOT', 'PARK', 'SHANKALP', 'ESTATE', 'INDUSTRIAL', 'GUJARAT', 'GIDC', 'ROAD', 'HIGHWAY', 'STREET', 'NEAR', 'PAISA', 'RUPEES', 'TAKEN BACK']): continue
+                    return cand
         return ""
 
     @staticmethod
