@@ -167,9 +167,33 @@ class InvoiceParserEngine:
             norm_text = InvoicePostprocessor.normalize_text(p_text)
             
             # Strict boundary detection for segmentation
-            # 1. Invoice Number (Stricter than field extractor to avoid noise)
-            inv_no_match = re.search(r'(?i)(?:Invoice No|Inv\.? No|Bill No|#)\s*[\.\:\-\s]*([A-Z0-9\-\/]{3,20})', norm_text)
-            inv_no = inv_no_match.group(1) if inv_no_match else None
+            # Use finditer to find the actual invoice number, skipping template noise
+            inv_no = None
+            candidates = []
+            for m in re.finditer(r'(?i)(?:\bInvoice No|\bInv\.? No|\bBill No|\bNo\b|#)\.?\s*[\.\:\-\s]*([A-Z0-9\-\/]{3,25})', norm_text):
+                cand = m.group(1).strip()
+                # Check line prefix for address-specific labels
+                start_p = max(0, m.start()-30)
+                prefix = norm_text[start_p:m.start()].upper()
+                label = m.group(0).upper()
+                
+                # REJECT if it's explicitly part of an address or template labels
+                if any(x in prefix for x in ['PLOT', 'SHED', 'BLOCK', 'GIDC', 'ACCOUNT', 'A/C', 'PHONE', 'MO.', 'ACK', 'IRN', 'GENERATED']): continue
+                
+                # REJECT typical template words that land in 'No.' (e.g. No. Original, No. Date)
+                junk = ['ORIGINAL', 'DATE', 'GUJARAT', 'STATE', 'DETAILS', 'DESCRIPTION', 'PLACE', 'TRANSPORT', 'PAN', 'PIN', 'HSN', 'SAC', 'QTY', 'RATE', 'AMOUNT', 'TAKEN BACK', 'PAGE', 'INVOICE']
+                if any(j in cand.upper() for j in junk): continue
+                
+                score = 0
+                if 'INVOICE' in label or 'INV' in label or 'BILL' in label: score += 2
+                if '/' in cand or '-' in cand: score += 1
+                if cand.isdigit(): score += 0.5
+                candidates.append((cand, score, label))
+                print(f"  Page {i+1} cand={cand} score={score} label={label}")
+            
+            if candidates:
+                candidates.sort(key=lambda x: x[1], reverse=True)
+                inv_no = candidates[0][0]
             
             # 2. Markers
             has_bf = any(x in norm_text.upper() for x in ["B/F", "BROUGHT FORWARD", "CONTINUED FROM"])
@@ -183,17 +207,16 @@ class InvoiceParserEngine:
                 if last_inv_no is None:
                     is_start = True
                 elif clean_inv != last_inv_no:
-                    # New number found. But wait, is it a continuation of the same one?
-                    # If page has B/F, it's definitely a continuation even if number is repeated or slightly different OCR'd.
-                    # But if no B/F and number changed, it's a start.
+                    # New number found. 
+                    # Only split if it's not a continuation (B/F check)
                     if not has_bf:
                         is_start = True
                 last_inv_no = clean_inv
-            elif is_new_header and not has_bf:
-                # No number found, but header looks fresh.
-                # If the previous page had a C/F, we might still be in continuation.
-                # But headers usually mean new invoice is starting soon or now.
+            elif is_new_header and last_inv_no is None:
+                # First page of document, start first segment
                 is_start = True
+            # REMOVED: splitting on header alone when last_inv_no is set.
+            # This prevents pages with 'Tax Invoice' logo but no new number (footers/continuations) from starting new segments.
 
             if is_start and current_pages:
                 units.append({
