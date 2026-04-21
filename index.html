@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ES3YSGF1WH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-ES3YSGF1WH');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CA Office PDF Utility &mdash; Offline PDF, Invoice, CMA & DSC Automation for CA Offices</title>
@@ -3337,6 +3346,11 @@
             resetCard.style.display = type === 'reset' ? 'block' : 'none';
             modalSubtitle.innerText = subtitle;
             authModal.classList.add('active');
+
+            // Tracking
+            if (typeof gtag === 'function') {
+                gtag('event', type === 'login' ? 'login_opened' : (type === 'signup' ? 'signup_opened' : 'reset_opened'));
+            }
         };
 
         const closeAuthModal = () => {
@@ -3409,6 +3423,11 @@
                 await signInWithEmailAndPassword(auth, document.getElementById('login-email').value, document.getElementById('login-password').value);
                 closeAuthModal();
                 showToast('Welcome back!');
+
+                // Tracking
+                if (typeof gtag === 'function') {
+                    gtag('event', 'login_success', { 'method': 'Email' });
+                }
             } catch (err) {
                 showToast(err.message, 'error');
             } finally {
@@ -3433,6 +3452,11 @@
                 });
                 closeAuthModal();
                 showToast('Account created successfully!');
+
+                // Tracking
+                if (typeof gtag === 'function') {
+                    gtag('event', 'signup_completed', { 'method': 'Email' });
+                }
             } catch (err) {
                 showToast(err.message, 'error');
             } finally {
@@ -3477,6 +3501,11 @@
                     version_downloaded: version,
                     platform: /Mac/i.test(navigator.userAgent) ? 'macOS' : 'Windows'
                 });
+
+                // Tracking
+                if (typeof gtag === 'function') {
+                    gtag('event', 'download_success', { 'version': version });
+                }
             } catch (err) {
                 console.error('Tracking failed:', err);
             }
@@ -3487,6 +3516,11 @@
                 e.preventDefault();
                 showAuthCard('login', "Please sign in to download the software");
                 return false;
+            }
+
+            // Tracking
+            if (typeof gtag === 'function') {
+                gtag('event', 'download_clicked', { 'version': 'v1.1.2' });
             }
             logDownload('v1.1.2');
             return true;
