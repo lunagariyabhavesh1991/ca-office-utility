@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ES3YSGF1WH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-ES3YSGF1WH');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CA Office Utility &mdash; Admin Dashboard</title>
@@ -186,6 +195,11 @@
                 // Not logged in
                 loginOverlay.style.display = 'flex';
                 dashboardContent.style.display = 'none';
+
+                // Tracking
+                if (typeof gtag === 'function') {
+                    gtag('event', 'login_opened', { 'type': 'Admin' });
+                }
             }
         });
 
@@ -196,6 +210,11 @@
             const errEl = document.getElementById('login-error');
             try {
                 await signInWithEmailAndPassword(auth, email, pwd);
+                
+                // Tracking
+                if (typeof gtag === 'function') {
+                    gtag('event', 'login_success', { 'method': 'Email', 'type': 'Admin' });
+                }
             } catch (err) {
                 errEl.innerText = err.message;
                 errEl.style.display = 'block';
