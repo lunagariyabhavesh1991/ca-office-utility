@@ -184,7 +184,39 @@ def main():
         
         zip_path = os.path.join(dist_dir, zip_name)
         create_secure_zip(dest_path, zip_path)
+
+        # 6b. Automation: Dummy file for legacy workflow compatibility
+        legacy_name = f"CA_Office_PDF_Utility_{version}.zip"
+        shutil.copy(zip_path, os.path.join(dist_dir, legacy_name))
         
+        # 7. CI-ONLY: Direct Upload to GitHub Release (Bypassing CLI limits)
+        if os.getenv("GITHUB_ACTIONS") == "true":
+            gh_token = os.getenv("PUBLIC_REPO_TOKEN")
+            if gh_token:
+                print(f"CI Mode: Attempting direct upload of {zip_name}...")
+                try:
+                    import requests
+                    repo = "marutitechsolutions/ca-office-utility"
+                    tag = version
+                    # 1. Get Release ID
+                    r = requests.get(f"https://api.github.com/repos/{repo}/releases/tags/{tag}", 
+                                     headers={"Authorization": f"token {gh_token}"})
+                    if r.status_code == 200:
+                        release_id = r.json()["id"]
+                        # 2. Upload Asset
+                        with open(zip_path, "rb") as f:
+                            upload_url = f"https://uploads.github.com/repos/{repo}/releases/{release_id}/assets?name={zip_name}"
+                            r_up = requests.post(upload_url, headers={
+                                "Authorization": f"token {gh_token}",
+                                "Content-Type": "application/zip"
+                            }, data=f)
+                            if r_up.status_code in [201, 200]:
+                                print(f"Successfully uploaded {zip_name} via API!")
+                            else:
+                                print(f"API Upload failed: {r_up.status_code} - {r_up.text}")
+                except Exception as e:
+                    print(f"CI Upload Error: {e}")
+
         print(f"\nSUCCESS! Build complete.")
         print(f"Build Folder: {dest_path}")
         print(f"Release ZIP: {zip_path}")
