@@ -2374,6 +2374,10 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                         Download for Windows
                     </a>
+                    <a href="#download" class="btn-secondary download-trigger" id="hero-mac-btn" style="display:none;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20.94c1.88-1.55 3.75-3.1 5.63-4.65a2.1 2.1 0 0 0 .5-3.08 2.08 2.08 0 0 0-2.93-.41c-1.1.9-2.2 1.83-3.2 2.76V3.5a2 2 0 1 0-4 0v12.06c-1-.93-2.1-1.85-3.2-2.76a2.08 2.08 0 0 0-2.93.41 2.1 2.1 0 0 0 .5 3.08c1.88 1.55 3.75 3.1 5.63 4.65a1.86 1.86 0 0 0 2.1 0z"/></svg>
+                        Download for macOS
+                    </a>
                     <a href="#modules" class="btn-secondary">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
                         View Features
@@ -3337,8 +3341,8 @@
         const modalSubtitle = document.getElementById('auth-modal-subtitle');
 
         const RELEASE_BASE = 'https://github.com/marutitechsolutions/ca-office-utility/releases/download/v1.1.2';
-        const WIN_URL = RELEASE_BASE + '/CA_Office_Utility_Windows_v1.1.2_build_20260420_144542.zip';
-        const MAC_URL = 'https://github.com/marutitechsolutions/ca-office-utility/releases/download/latest/CA_Office_Utility_Mac.zip';
+        const WIN_URL = RELEASE_BASE + '/CA_Office_Utility_Windows_v1.1.2.zip';
+        const MAC_URL = RELEASE_BASE + '/CA_Office_Utility_macOS_v1.1.2.zip';
 
         const showAuthCard = (type, subtitle = "Please sign in to your account") => {
             loginCard.style.display = type === 'login' ? 'block' : 'none';
