@@ -3,7 +3,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, on
 import { getFirestore, doc, setDoc, addDoc, collection, serverTimestamp, getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDaINSM0602SYzJ9D7eg16Nkz4NjC0aULI",
+  apiKey: "AIzaSyDaInSM0602SYzJ9D7eg16Nkz4NjC0aULI",
   authDomain: "ca-office-utility.firebaseapp.com",
   projectId: "ca-office-utility",
   storageBucket: "ca-office-utility.firebasestorage.app",
