@@ -81,9 +81,8 @@ class AppWindow(TkinterDnDApp):
             
         self.seat_manager.start()
         
-        # Always show mgmt button for easy status check if it's an Office-capable machine
-        if self.license_status["is_office"] or not self.license_status["is_activated"]:
-            self.add_server_mgmt_btn()
+        # Always show the Office License Server button for network seat monitoring
+        self.add_server_mgmt_btn()
         
         # Show default view or activation if expired
         # Only block if EXPIRED AND no floating seat found (Wait a bit for discovery)
