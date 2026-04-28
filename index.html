@@ -3760,9 +3760,13 @@
             if (!container) return;
 
             try {
-                const response = await fetch('data/posts.json');
-                const posts = await response.json();
+                // Cache-busting with timestamp
+                const response = await fetch(`data/posts.json?v=${new Date().getTime()}`);
+                const allPosts = await response.json();
                 
+                // Filter by published status
+                const posts = allPosts.filter(p => p.status === 'published');
+
                 // Sort by date (desc) and take top 3
                 const latestPosts = posts
                     .sort((a, b) => new Date(b.date) - new Date(a.date))
