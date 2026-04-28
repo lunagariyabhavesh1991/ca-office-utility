@@ -173,13 +173,14 @@
                 let q = collection(db, "post_comments");
                 
                 if (currentFilter !== 'all') {
-                    const q2 = query(q, where("status", "==", currentFilter), orderBy("createdAt", "desc"));
+                    const q2 = query(q, where("status", "==", currentFilter));
                     const snap = await getDocs(q2);
-                    allComments = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                    allComments = snap.docs.map(d => ({ id: d.id, ...d.data() }))
+                        .sort((a, b) => (b.createdAt?.toMillis() || 0) - (a.createdAt?.toMillis() || 0));
                 } else {
-                    const q2 = query(q, orderBy("createdAt", "desc"));
-                    const snap = await getDocs(q2);
-                    allComments = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                    const snap = await getDocs(q);
+                    allComments = snap.docs.map(d => ({ id: d.id, ...d.data() }))
+                        .sort((a, b) => (b.createdAt?.toMillis() || 0) - (a.createdAt?.toMillis() || 0));
                 }
                 
                 updateStats();
