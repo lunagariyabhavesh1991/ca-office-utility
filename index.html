@@ -3760,34 +3760,37 @@
             if (!container) return;
 
             try {
-                // Cache-busting with timestamp
                 const response = await fetch(`data/posts.json?v=${new Date().getTime()}`);
                 const allPosts = await response.json();
                 
-                // Filter by published status
                 const posts = allPosts.filter(p => p.status === 'published');
 
-                // Sort by date (desc) and take top 3
                 const latestPosts = posts
                     .sort((a, b) => new Date(b.date) - new Date(a.date))
                     .slice(0, 3);
 
                 container.innerHTML = latestPosts.map(post => `
                     <a href="knowledge-hub.html?id=${post.id}" class="update-card animate-on-scroll">
-                        <span class="update-category">${post.category}</span>
+                        ${post.highlight ? `<div class="post-highlight" style="position: absolute; top: 0; right: 0; padding: 4px 12px; background: #f59e0b; color: #000; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; border-bottom-left-radius: 12px;">${post.highlight}</div>` : ''}
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+                            <span class="update-category">${post.category}</span>
+                            <span style="font-size: 0.75rem; color: var(--text-tertiary); display: flex; align-items: center; gap: 4px;">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                ${post.readTime || '3 min read'}
+                            </span>
+                        </div>
                         <h3 class="update-title">${post.title}</h3>
                         <p class="update-summary">${post.summary}</p>
                         <div class="update-footer">
                             <span class="update-date">${new Date(post.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                             <span class="update-link">
-                                Read More
+                                Read Update
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                             </span>
                         </div>
                     </a>
                 `).join('');
 
-                // Observe new elements
                 if(container.querySelectorAll('.animate-on-scroll').length > 0) {
                     container.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
                 }
