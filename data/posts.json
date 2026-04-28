@@ -187,13 +187,37 @@
       "April 2026 TDS general deposit due date: 07-05-2026 for non-government deductors with challan."
     ],
     "tableData": {
-      "headers": ["Situation", "Applicable Law", "Practical Action"],
+      "headers": [
+        "Situation",
+        "Applicable Law",
+        "Practical Action"
+      ],
       "rows": [
-        ["Payment / credit on or before 31-03-2026", "Income-tax Act, 1961", "Use old Act section reference such as 194C / 194J / 194H as applicable"],
-        ["Payment / credit on or after 01-04-2026", "Income-tax Act, 2025", "Use new Act reference such as section 392 for salary and section 393 for non-salary payments"],
-        ["TDS deducted in April 2026 by non-government deductor", "Income-tax Act, 2025", "Generally deposit by 07-05-2026 where challan payment applies"],
-        ["TDS deducted in March 2026", "Income-tax Act, 1961", "March 2026 TDS due date for non-government deductors is generally 30-04-2026"],
-        ["Wrong old section quoted for post 01-04-2026 transaction", "Income-tax Act, 2025", "May cause processing / validation issue and correction may be required"]
+        [
+          "Payment / credit on or before 31-03-2026",
+          "Income-tax Act, 1961",
+          "Use old Act section reference such as 194C / 194J / 194H as applicable"
+        ],
+        [
+          "Payment / credit on or after 01-04-2026",
+          "Income-tax Act, 2025",
+          "Use new Act reference such as section 392 for salary and section 393 for non-salary payments"
+        ],
+        [
+          "TDS deducted in April 2026 by non-government deductor",
+          "Income-tax Act, 2025",
+          "Generally deposit by 07-05-2026 where challan payment applies"
+        ],
+        [
+          "TDS deducted in March 2026",
+          "Income-tax Act, 1961",
+          "March 2026 TDS due date for non-government deductors is generally 30-04-2026"
+        ],
+        [
+          "Wrong old section quoted for post 01-04-2026 transaction",
+          "Income-tax Act, 2025",
+          "May cause processing / validation issue and correction may be required"
+        ]
       ]
     },
     "actionPoints": [
@@ -262,7 +286,7 @@
       "Salary TDS: Now under Section 392 of Income-tax Act, 2025.",
       "Non-salary TDS: Broadly covered under Section 393.",
       "Rates and thresholds are largely retained from the previous Act.",
-      "New Act references should be used for all transactions from 01-04-2026."
+      "New Act references should be used where payment or credit, whichever is earlier, occurs on or after 01-04-2026."
     ],
     "tableData": {
       "headers": [
@@ -274,17 +298,94 @@
         "Forms"
       ],
       "rows": [
-        ["Salaries", "Payment", "Section 392", "Slab Rates / Nil", "7th of next month", "Form 24Q"],
-        ["Contractors", "Payment/Credit", "Section 393", "1% (Ind/HUF) / 2% (Other); ₹30k single / ₹1L aggregate", "7th of next month", "Form 26Q"],
-        ["Professional / Technical Fees", "Payment/Credit", "Section 393", "10% (2% for certain types); ₹30k", "7th of next month", "Form 26Q"],
-        ["Rent", "Payment/Credit", "Section 393", "10% (2% for Plant/Mach); ₹2.4L", "7th of next month", "Form 26Q"],
-        ["Dividend", "Payment/Credit", "Section 393", "10%; ₹5,000", "7th of next month", "Form 26Q"],
-        ["Interest on Securities", "Payment/Credit", "Section 393", "10%", "7th of next month", "Form 26Q"],
-        ["Insurance Commission", "Payment/Credit", "Section 393", "5%; ₹15,000", "7th of next month", "Form 26Q"],
-        ["Commission or Brokerage", "Payment/Credit", "Section 393", "5%; ₹15,000", "7th of next month", "Form 26Q"],
-        ["Transfer of Immovable Property", "Payment/Credit", "Section 393", "1%; ₹50 Lakh", "30 days from end of month", "Form 26QB"],
-        ["Rent by Individual / HUF", "Payment", "Section 393", "5%; ₹50,000 per month", "30 days from end of month", "Form 26QC"],
-        ["Virtual Digital Assets", "Payment/Credit", "Section 393", "1%; ₹10,000 / ₹50,000", "30 days from end of month", "Form 26QE"]
+        [
+          "Salaries",
+          "Salary payment / deduction event",
+          "Section 392",
+          "Slab rates / average rate as applicable",
+          "Within 7 days from month-end; March exception to be checked",
+          "Form 138 / Form 130"
+        ],
+        [
+          "Payments to Contractors",
+          "Earlier of credit or payment",
+          "Section 393 table item",
+          "1% / 2%; threshold to be verified",
+          "Within 7 days from month-end",
+          "Form 140 / Form 131"
+        ],
+        [
+          "Professional / Technical Fees",
+          "Earlier of credit or payment",
+          "Section 393 table item",
+          "2% / 10%; threshold to be verified",
+          "Within 7 days from month-end",
+          "Form 140 / Form 131"
+        ],
+        [
+          "Rent",
+          "Earlier of credit or payment",
+          "Section 393 table item",
+          "Rate and threshold depend on rent category and payer type",
+          "Within 7 days / 30-day cases where applicable",
+          "Form 140 / Form 131 / Form 141"
+        ],
+        [
+          "Dividend",
+          "Earlier of credit or payment",
+          "Section 393 table item",
+          "10%; threshold to be verified",
+          "Within 7 days from month-end",
+          "Form 140 / Form 131"
+        ],
+        [
+          "Interest on Securities",
+          "Earlier of credit or payment",
+          "Section 393 table item",
+          "Rate in force; threshold to be verified",
+          "Within 7 days from month-end",
+          "Form 140 / Form 131"
+        ],
+        [
+          "Insurance Commission",
+          "Earlier of credit or payment",
+          "Section 393 table item",
+          "Rate in force; threshold to be verified",
+          "Within 7 days from month-end",
+          "Form 140 / Form 131"
+        ],
+        [
+          "Commission or Brokerage",
+          "Earlier of credit or payment",
+          "Section 393 table item",
+          "Rate in force; threshold to be verified",
+          "Within 7 days from month-end",
+          "Form 140 / Form 131"
+        ],
+        [
+          "Transfer of Immovable Property",
+          "Earlier of credit or payment",
+          "Section 393 table item / challan-cum-statement case",
+          "1%; threshold to be verified",
+          "Within 30 days from end of month",
+          "Form 141 / Form 132"
+        ],
+        [
+          "Rent by Individual / HUF",
+          "Payment / credit as applicable",
+          "Section 393 table item / challan-cum-statement case",
+          "Rate and threshold to be verified",
+          "Within 30 days from end of month",
+          "Form 141 / Form 132"
+        ],
+        [
+          "Virtual Digital Assets",
+          "Earlier of credit or payment",
+          "Section 393 table item / challan-cum-statement case",
+          "1%; threshold to be verified",
+          "Within 30 days from end of month",
+          "Form 141 / Form 132"
+        ]
       ]
     },
     "actionPoints": [
@@ -312,7 +413,7 @@
       "Section 393",
       "Tax Forms"
     ],
-    "status": "draft",
+    "status": "published",
     "disclaimer": "This is a general knowledge update. Please verify applicable law, notification, circular and facts before taking action.",
     "caution": "This table is a simplified practical reference. Exact section table item, threshold, rate, payee status, form and challan requirement should be verified before deduction/payment/return filing."
   }
