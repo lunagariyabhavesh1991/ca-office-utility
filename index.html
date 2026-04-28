@@ -2316,6 +2316,95 @@
             color: #fff;
             font-weight: 500;
         }
+        /* Knowledge Hub Section (Latest Updates) */
+        .updates-section {
+            padding: 80px 0;
+            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        }
+
+        .updates-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .update-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .update-card:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-4px);
+            background: var(--bg-card-hover);
+        }
+
+        .update-category {
+            display: inline-flex;
+            padding: 4px 12px;
+            background: var(--accent-primary-glow);
+            color: var(--accent-primary);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            width: fit-content;
+        }
+
+        .update-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .update-summary {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .update-footer {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .update-date {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+
+        .update-link {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        @media (max-width: 992px) {
+            .updates-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 640px) {
+            .updates-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -2336,6 +2425,7 @@
             <ul class="navbar-links" id="nav-links">
                 <li><a href="#hero">Home</a></li>
                 <li><a href="#modules">Features</a></li>
+                <li><a href="knowledge-hub.html">Knowledge Hub</a></li>
                 <li><a href="#usecases">Use Cases</a></li>
                 <li><a href="#download">Download</a></li>
                 <li><a href="#faq">FAQ</a></li>
@@ -2440,6 +2530,36 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION: LATEST KNOWLEDGE UPDATES
+         ================================================================ -->
+    <section class="updates-section" id="updates">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    Daily Tax & Compliance Knowledge
+                </div>
+                <h2 class="section-title">Latest Updates</h2>
+                <p class="section-subtitle">Stay informed with the latest changes in GST, Income Tax, TDS, and ROC regulations.</p>
+            </div>
+
+            <div class="updates-grid" id="latest-updates-container">
+                <!-- Posts will be loaded here via JS -->
+                <div class="loading-placeholder" style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-tertiary);">
+                    Loading latest updates...
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 48px;">
+                <a href="knowledge-hub.html" class="btn-secondary">
+                    View All Knowledge Posts
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
             </div>
         </div>
     </section>
@@ -3633,6 +3753,47 @@
             document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
             if (!isActive) item.classList.add('active');
         };
+
+        // Load Latest Updates
+        const loadLatestUpdates = async () => {
+            const container = document.getElementById('latest-updates-container');
+            if (!container) return;
+
+            try {
+                const response = await fetch('data/posts.json');
+                const posts = await response.json();
+                
+                // Sort by date (desc) and take top 3
+                const latestPosts = posts
+                    .sort((a, b) => new Date(b.date) - new Date(a.date))
+                    .slice(0, 3);
+
+                container.innerHTML = latestPosts.map(post => `
+                    <a href="knowledge-hub.html?id=${post.id}" class="update-card animate-on-scroll">
+                        <span class="update-category">${post.category}</span>
+                        <h3 class="update-title">${post.title}</h3>
+                        <p class="update-summary">${post.summary}</p>
+                        <div class="update-footer">
+                            <span class="update-date">${new Date(post.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                            <span class="update-link">
+                                Read More
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </span>
+                        </div>
+                    </a>
+                `).join('');
+
+                // Observe new elements
+                if(container.querySelectorAll('.animate-on-scroll').length > 0) {
+                    container.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+                }
+            } catch (err) {
+                console.error('Failed to load updates:', err);
+                container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--accent-rose);">Failed to load updates. Please try again later.</div>';
+            }
+        };
+
+        loadLatestUpdates();
     </script>
 </body>
 </html>
