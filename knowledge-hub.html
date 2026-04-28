@@ -85,9 +85,13 @@
         .navbar-cta {
             font-size: 0.85rem !important; font-weight: 600 !important;
             color: #fff !important; background: var(--accent-primary);
-            padding: 8px 20px; border-radius: 8px;
+            padding: 0 24px; border-radius: 8px;
             box-shadow: 0 4px 12px rgba(59,130,246,0.25);
+            display: inline-flex; align-items: center; justify-content: center;
+            white-space: nowrap; height: 40px; min-width: 140px;
+            border: none; cursor: pointer; transition: 0.2s;
         }
+        .navbar-cta:hover { background: #2563eb; transform: translateY(-1px); }
 
         /* Page Header */
         .page-header { padding: 140px 0 60px; text-align: center; }
@@ -246,6 +250,50 @@
         .btn-cta-secondary { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--border-medium); padding: 10px 24px; border-radius: 8px; font-weight: 600; transition: 0.2s; }
         .btn-cta-primary:hover, .btn-cta-secondary:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 
+        /* Post Actions Area */
+        .post-actions-bar {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px; margin: 32px 0; padding: 20px;
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border-medium);
+            border-radius: 16px;
+        }
+        .action-btn {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 10px 16px; border-radius: 10px; font-size: 0.9rem; font-weight: 600;
+            cursor: pointer; transition: 0.2s; border: 1px solid var(--border-subtle);
+            background: rgba(255,255,255,0.03); color: var(--text-secondary);
+        }
+        .action-btn:hover { background: rgba(255,255,255,0.06); color: var(--text-primary); transform: translateY(-2px); }
+        .action-btn.liked { color: var(--accent-rose); border-color: rgba(244, 63, 94, 0.3); background: rgba(244, 63, 94, 0.05); }
+        .action-btn svg { width: 18px; height: 18px; }
+
+        /* Comments Section */
+        .comments-section { margin-top: 48px; border-top: 1px solid var(--border-medium); padding-top: 40px; }
+        .comments-title { font-size: 1.25rem; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+        .comment-form { background: var(--bg-card); padding: 24px; border-radius: 16px; margin-bottom: 32px; border: 1px solid var(--border-medium); }
+        .form-row { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 16px; }
+        .form-input { 
+            width: 100%; padding: 12px 16px; background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-medium); border-radius: 10px; 
+            color: #fff; font-size: 0.9rem; outline: none; transition: 0.2s;
+        }
+        .form-input:focus { border-color: var(--accent-primary); }
+        textarea.form-input { min-height: 100px; resize: vertical; }
+        .btn-submit-comment { 
+            background: var(--accent-primary); color: #fff; border: none; 
+            padding: 10px 24px; border-radius: 8px; font-weight: 600; 
+            cursor: pointer; transition: 0.2s; 
+        }
+        .btn-submit-comment:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(59,130,246,0.25); }
+        .btn-submit-comment:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        .comment-list { display: flex; flex-direction: column; gap: 20px; }
+        .comment-item { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid var(--border-subtle); }
+        .comment-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+        .comment-author { font-weight: 700; color: var(--text-primary); font-size: 0.95rem; }
+        .comment-date { font-size: 0.75rem; color: var(--text-tertiary); }
+        .comment-text { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+
         @media (max-width: 768px) {
             .page-title { font-size: 2rem; }
             .filter-bar { flex-direction: column; align-items: stretch; }
@@ -254,6 +302,7 @@
             .modal-hero { padding: 60px 24px 30px; }
             .modal-title { font-size: 1.5rem; }
             .points-list { grid-template-columns: 1fr; }
+            .post-actions-bar { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -266,11 +315,11 @@
                 <img src="assets/images/logo.png" alt="CA Office PDF Utility" class="navbar-logo">
                 <span class="navbar-brand-text">CA Office <span>PDF Utility</span></span>
             </a>
-            <ul class="navbar-links">
-                <li><a href="index.html">Home</a></li>
+            <ul class="navbar-links" id="nav-links">
+                <li><a href="index.html#hero">Home</a></li>
                 <li><a href="index.html#modules">Features</a></li>
                 <li><a href="#" style="color: var(--text-primary); font-weight: 600;">Knowledge Hub</a></li>
-                <li><a href="index.html#download" class="navbar-cta">Download App</a></li>
+                <li><a href="index.html#download" class="navbar-cta download-trigger">Get Windows Build</a></li>
             </ul>
         </div>
     </nav>
@@ -324,16 +373,26 @@
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        import { 
+            db, auth, onAuthStateChanged,
+            doc, getDoc, getDocs, collection, query, where, orderBy, addDoc, updateDoc, increment, serverTimestamp, limit
+        } from "./firebase-init.js";
+
         let allPosts = [];
         let currentCategory = 'All';
         let searchQuery = '';
+        let currentUser = null;
 
         const postsContainer = document.getElementById('posts-container');
         const modal = document.getElementById('post-modal');
         const modalContent = document.getElementById('modal-content');
         const searchInput = document.getElementById('search-input');
         const categoryBtns = document.querySelectorAll('.filter-btn');
+
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+        });
 
         // Fetch Posts
         const fetchPosts = async () => {
@@ -387,12 +446,12 @@
                     <h3 class="post-title">${post.title}</h3>
                     <p class="post-summary">${post.summary}</p>
                     <div class="post-footer">
-                        <div class="btn-read" onclick="handleReadMore('${post.id}')">
+                        <div class="btn-read" onclick="window.handleReadMore('${post.id}')">
                             Read Update
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                         </div>
                         <a href="https://wa.me/?text=${encodeURIComponent('Check out this update: ' + post.title + ' - ' + window.location.origin + window.location.pathname + '?id=' + post.id)}" 
-                           target="_blank" class="btn-share-wa" onclick="trackShare('${post.id}')">
+                           target="_blank" class="btn-share-wa" onclick="window.trackShare('${post.id}')">
                             <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.937 3.659 1.432 5.631 1.433h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                         </a>
                     </div>
@@ -400,12 +459,12 @@
             `).join('');
         };
 
-        const handleReadMore = (id) => {
+        window.handleReadMore = (id) => {
             const post = allPosts.find(p => p.id == id);
             if (post) openPost(post);
         };
 
-        const openPost = (post) => {
+        const openPost = async (post) => {
             modalContent.innerHTML = `
                 <div class="modal-hero" style="--hero-bg: ${post.heroColor || 'var(--accent-primary)'}">
                     ${post.highlight ? `<span class="modal-hero-badge">${post.highlight}</span>` : ''}
@@ -442,20 +501,6 @@
                                     </li>
                                 `).join('')}
                             </ul>
-                        </div>
-                    ` : ''}
-
-                    ${post.whoShouldRead && post.whoShouldRead.length > 0 ? `
-                        <div class="rich-section">
-                            <h4 class="rich-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Who Should Read?</h4>
-                            <div class="points-list">
-                                ${post.whoShouldRead.map(item => `
-                                    <div class="points-item">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-                                        <span>${item}</span>
-                                    </div>
-                                `).join('')}
-                            </div>
                         </div>
                     ` : ''}
 
@@ -501,7 +546,7 @@
                             <div class="faq-container">
                                 ${post.faqs.map((f, idx) => `
                                     <div class="faq-item">
-                                        <div class="faq-header" onclick="toggleFaq(this)">
+                                        <div class="faq-header" onclick="window.toggleFaq(this)">
                                             <span>${f.question}</span>
                                             <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
                                         </div>
@@ -512,39 +557,55 @@
                         </div>
                     ` : ''}
 
-                    ${post.sourceName ? `
-                        <div class="rich-section">
-                            <div class="source-box">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                                <strong>Source:</strong>
-                                ${post.sourceUrl ? `<a href="${post.sourceUrl}" target="_blank" style="color: var(--accent-primary); text-decoration: underline;">${post.sourceName}</a>` : post.sourceName}
-                            </div>
-                        </div>
-                    ` : ''}
-
                     <div class="rich-section">
                         <div class="disclaimer-box">
                             <strong>Disclaimer:</strong> ${post.disclaimer || 'This is a general knowledge update. Please verify applicable law, notification, circular and facts before taking action.'}
                         </div>
                     </div>
 
-                    <div class="modal-cta">
-                        <h4>Need CA Office Automation?</h4>
-                        <p>Join 500+ CA professionals using our PDF Utility, Smart Invoice Parser and CMA/DPR Builder.</p>
-                        <div class="cta-btns">
-                            <a href="index.html#download" class="btn-cta-primary">Download Utility</a>
-                            <a href="https://wa.me/919876543210?text=${encodeURIComponent('Hi, I read your post: ' + post.title + '. I want to know more about the Utility.')}" 
-                               target="_blank" class="btn-cta-secondary">Contact on WhatsApp</a>
+                    <!-- Post Actions Bar -->
+                    <div class="post-actions-bar">
+                        <div class="action-btn" id="like-btn" onclick="window.handleLike('${post.id}')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                            <span id="like-count">Like</span>
+                        </div>
+                        <div class="action-btn" onclick="document.getElementById('comment-form-section').scrollIntoView({behavior:'smooth'})">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                            <span id="comment-count-label">Comment</span>
+                        </div>
+                        <a href="https://wa.me/?text=${encodeURIComponent(post.title + ' - ' + window.location.origin + window.location.pathname + '?id=' + post.id)}" 
+                           target="_blank" class="action-btn" onclick="window.trackShare('${post.id}')">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.937 3.659 1.432 5.631 1.433h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            Share
+                        </a>
+                        <a href="index.html#contact" class="action-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            Contact Support
+                        </a>
+                    </div>
+
+                    <!-- Comments Section -->
+                    <div class="comments-section" id="comment-form-section">
+                        <h4 class="comments-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                            Discussion (<span id="comment-count-total">0</span>)
+                        </h4>
+                        
+                        <div class="comment-form">
+                            <div class="form-row">
+                                <input type="text" id="comment-name" class="form-input" placeholder="Your Name" value="${currentUser ? currentUser.displayName : ''}">
+                            </div>
+                            <div class="form-row">
+                                <textarea id="comment-text" class="form-input" placeholder="Add your thought or question..."></textarea>
+                            </div>
+                            <button type="button" class="btn-submit-comment" id="btn-submit-comment" onclick="window.submitComment('${post.id}')">Post Comment</button>
+                            <p id="comment-status" style="margin-top:10px; font-size:0.8rem;"></p>
+                        </div>
+
+                        <div class="comment-list" id="comment-list">
+                            <!-- Comments loaded here -->
                         </div>
                     </div>
-                </div>
-
-                <div class="sticky-share">
-                    <a href="https://wa.me/?text=${encodeURIComponent(post.title + ' - ' + window.location.origin + window.location.pathname + '?id=' + post.id)}" 
-                       target="_blank" class="btn-wa-large" onclick="trackShare('${post.id}')">
-                        <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.937 3.659 1.432 5.631 1.433h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                        Share on WhatsApp
-                    </a>
                 </div>
             `;
             modal.classList.add('active');
@@ -555,6 +616,114 @@
             if (typeof gtag === 'function') {
                 gtag('event', 'post_read', { 'post_title': post.title, 'category': post.category });
             }
+
+            // Load Likes and Comments
+            loadLikes(post.id);
+            loadComments(post.id);
+        };
+
+        const loadLikes = async (postId) => {
+            try {
+                const likeDoc = await getDoc(doc(db, "post_stats", postId));
+                const count = likeDoc.exists() ? likeDoc.data().likes || 0 : 0;
+                document.getElementById('like-count').innerText = count > 0 ? `${count} Likes` : 'Like';
+                
+                if (localStorage.getItem(`liked_${postId}`)) {
+                    document.getElementById('like-btn').classList.add('liked');
+                }
+            } catch (err) { console.error(err); }
+        };
+
+        window.handleLike = async (postId) => {
+            if (localStorage.getItem(`liked_${postId}`)) return;
+
+            try {
+                const btn = document.getElementById('like-btn');
+                btn.classList.add('liked');
+                localStorage.setItem(`liked_${postId}`, 'true');
+
+                await setDoc(doc(db, "post_stats", postId), {
+                    likes: increment(1)
+                }, { merge: true });
+
+                loadLikes(postId);
+            } catch (err) { console.error(err); }
+        };
+
+        const loadComments = async (postId) => {
+            const list = document.getElementById('comment-list');
+            const totalLabel = document.getElementById('comment-count-total');
+            const countLabel = document.getElementById('comment-count-label');
+
+            try {
+                const q = query(
+                    collection(db, "post_comments"), 
+                    where("postId", "==", postId), 
+                    where("status", "==", "approved"),
+                    orderBy("createdAt", "desc")
+                );
+                const snap = await getDocs(q);
+                totalLabel.innerText = snap.size;
+                countLabel.innerText = snap.size > 0 ? `${snap.size} Comments` : 'Comment';
+
+                if (snap.empty) {
+                    list.innerHTML = '<p style="color: var(--text-tertiary); text-align: center;">No comments yet. Be the first to start the discussion!</p>';
+                    return;
+                }
+
+                list.innerHTML = snap.docs.map(d => {
+                    const data = d.data();
+                    return `
+                        <div class="comment-item">
+                            <div class="comment-header">
+                                <span class="comment-author">${data.name}</span>
+                                <span class="comment-date">${data.createdAt ? new Date(data.createdAt.toDate()).toLocaleDateString() : 'Just now'}</span>
+                            </div>
+                            <p class="comment-text">${data.text}</p>
+                        </div>
+                    `;
+                }).join('');
+            } catch (err) {
+                console.error(err);
+                list.innerHTML = '<p style="color: var(--accent-rose);">Failed to load comments.</p>';
+            }
+        };
+
+        window.submitComment = async (postId) => {
+            const name = document.getElementById('comment-name').value.trim();
+            const text = document.getElementById('comment-text').value.trim();
+            const btn = document.getElementById('btn-submit-comment');
+            const status = document.getElementById('comment-status');
+
+            if (!name || !text) {
+                status.innerText = "Please fill in all fields.";
+                status.style.color = "var(--accent-rose)";
+                return;
+            }
+
+            btn.disabled = true;
+            status.innerText = "Submitting...";
+            status.style.color = "var(--text-tertiary)";
+
+            try {
+                await addDoc(collection(db, "post_comments"), {
+                    postId,
+                    name,
+                    text,
+                    status: "pending",
+                    createdAt: serverTimestamp(),
+                    uid: currentUser ? currentUser.uid : null
+                });
+
+                status.innerText = "Comment submitted! It will appear after moderation.";
+                status.style.color = "var(--accent-emerald)";
+                document.getElementById('comment-text').value = '';
+            } catch (err) {
+                console.error(err);
+                status.innerText = "Error submitting comment. Try again.";
+                status.style.color = "var(--accent-rose)";
+                btn.disabled = false;
+            }
         };
 
         const closeModal = () => {
@@ -563,7 +732,7 @@
             window.history.pushState({}, '', window.location.pathname);
         };
 
-        const toggleFaq = (header) => {
+        window.toggleFaq = (header) => {
             const item = header.parentElement;
             item.classList.toggle('active');
         };
@@ -576,7 +745,7 @@
             }
         };
 
-        const trackShare = (id) => {
+        window.trackShare = (id) => {
             const post = allPosts.find(p => p.id == id);
             if (typeof gtag === 'function' && post) {
                 gtag('event', 'post_shared_whatsapp', { 'post_title': post.title });
