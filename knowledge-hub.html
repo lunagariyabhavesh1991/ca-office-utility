@@ -283,7 +283,8 @@
         // Fetch Posts
         const fetchPosts = async () => {
             try {
-                const response = await fetch('data/posts.json');
+                // Cache-busting with timestamp
+                const response = await fetch(`data/posts.json?v=${new Date().getTime()}`);
                 allPosts = await response.json();
                 renderPosts();
                 
@@ -308,11 +309,12 @@
         // Render Posts
         const renderPosts = () => {
             const filtered = allPosts.filter(post => {
+                const isPublished = post.status === 'published';
                 const matchesCat = currentCategory === 'All' || post.category === currentCategory;
                 const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
                                      post.summary.toLowerCase().includes(searchQuery.toLowerCase()) ||
                                      post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
-                return matchesCat && matchesSearch;
+                return isPublished && matchesCat && matchesSearch;
             });
 
             if (filtered.length === 0) {
@@ -355,6 +357,15 @@
                     <span class="modal-date">Published on ${formatDate(post.date)}</span>
                 </div>
                 <div class="modal-body">${post.content}</div>
+                ${post.sourceName ? `
+                    <div style="margin-bottom: 24px; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px; font-size: 0.9rem;">
+                        <strong style="color: var(--text-secondary);">Source:</strong> 
+                        ${post.sourceUrl ? `<a href="${post.sourceUrl}" target="_blank" style="color: var(--accent-primary); text-decoration: underline;">${post.sourceName}</a>` : post.sourceName}
+                    </div>
+                ` : ''}
+                <div style="margin-bottom: 32px; padding: 16px; border-left: 4px solid var(--accent-rose); background: rgba(244, 63, 94, 0.05); font-size: 0.85rem; color: var(--text-secondary); font-style: italic;">
+                    ${post.disclaimer || 'This is a general knowledge update. Please verify applicable law, notification, circular and facts before taking action.'}
+                </div>
                 <div class="modal-cta">
                     <p>For CA Office PDF Utility, Smart Invoice Parser and CMA/DPR Builder demo, contact us.</p>
                     <a href="index.html#contact" class="btn-cta">Contact for Demo</a>
