@@ -1,30 +1,16 @@
 [
   {
-    "id": 1,
-    "title": "GST Council Recommendation: Changes in GSTR-1 & GSTR-3B",
-    "date": "2026-04-28",
-    "category": "GST Updates",
-    "summary": "Recent recommendations suggest amendments to GSTR-1 and 3B for better reconciliation of ITC and sales data.",
-    "content": "The GST Council in its latest meeting has recommended several procedural changes to streamline the filing process. Key highlights include:\n\n1. Mandatory reporting of HSN codes for all taxpayers with turnover above 5Cr.\n2. Introduction of a new table in GSTR-3B for reporting reversal of ITC.\n3. Synchronization of GSTR-1 and GSTR-3B deadlines to avoid late fee disparities.\n\nTaxpayers are advised to review their ERP systems to ensure compatibility with these upcoming changes which are expected to be live from the next quarter.",
-    "tags": ["GST", "GSTR-1", "GST Council"]
-  },
-  {
     "id": 2,
     "title": "Income Tax: New Compliance for High Value Transactions",
     "date": "2026-04-27",
     "category": "Income Tax",
     "summary": "CBDT has issued new guidelines for reporting SFT (Statement of Financial Transactions) for high-value cash deposits.",
     "content": "The Central Board of Direct Taxes (CBDT) has tightened the norms for reporting high-value transactions. \n\nStarting this financial year, reporting entities must include detailed PAN/Aadhaar validation for cash deposits exceeding 50 Lakhs in a single year across all accounts. This move aims to curb black money and increase the tax base. \n\nProfessionals should ensure that their clients are well-informed about these reporting requirements to avoid scrutiny notices.",
-    "tags": ["Income Tax", "SFT", "CBDT"]
-  },
-  {
-    "id": 3,
-    "title": "TDS Rate Changes for Tech Services",
-    "date": "2026-04-26",
-    "category": "TDS",
-    "summary": "The government has updated the TDS rates under Section 194J for technical and professional services.",
-    "content": "Section 194J has undergone minor revisions in the current finance act. \n\n- TDS on Fees for technical services (other than professional services) remains at 2%.\n- TDS on professional services remains at 10%.\n- However, a new sub-category for 'Cloud Computing Services' has been introduced with a reduced rate of 5% to promote digital infrastructure.\n\nEnsure you update your TDS software to reflect these changes before the next deduction cycle.",
-    "tags": ["TDS", "Section 194J", "Tech Services"]
+    "tags": ["Income Tax", "SFT", "CBDT"],
+    "status": "published",
+    "sourceName": "",
+    "sourceUrl": "",
+    "disclaimer": "This is a general knowledge update. Please verify applicable law, notification, circular and facts before taking action."
   },
   {
     "id": 4,
@@ -33,16 +19,11 @@
     "category": "ROC / MCA",
     "summary": "MCA has announced the calendar for annual filing (AOC-4 and MGT-7) for the previous financial year.",
     "content": "The Ministry of Corporate Affairs (MCA) has released the filing schedule for the FY ending March 2026. \n\n- Form AOC-4: Within 30 days of AGM.\n- Form MGT-7: Within 60 days of AGM.\n- DIN KYC (DIR-3 KYC): Deadline 30th September 2026.\n\nEarly filing is encouraged to avoid last-minute server congestion on the V3 portal.",
-    "tags": ["ROC", "MCA", "Annual Filing"]
-  },
-  {
-    "id": 5,
-    "title": "New GST Rules for E-commerce Operators",
-    "date": "2026-04-24",
-    "category": "GST Updates",
-    "summary": "E-commerce platforms must now implement real-time TCS (Tax Collected at Source) reporting.",
-    "content": "To increase transparency, the GST department has mandated real-time reporting of sales and TCS by e-commerce operators. \n\nPreviously, reporting was done on a monthly basis. The new API-based integration will allow the department to track vendor sales instantly. Small vendors are expected to benefit from faster reconciliation of their ITC.",
-    "tags": ["GST", "E-commerce", "TCS"]
+    "tags": ["ROC", "MCA", "Annual Filing"],
+    "status": "published",
+    "sourceName": "",
+    "sourceUrl": "",
+    "disclaimer": "This is a general knowledge update. Please verify applicable law, notification, circular and facts before taking action."
   },
   {
     "id": 6,
@@ -51,7 +32,11 @@
     "category": "Income Tax",
     "summary": "Preparing for the tax audit season? Here are the top 5 areas of focus for Clause 44 reconciliation.",
     "content": "Clause 44 (GST expenditure details) continues to be a major challenge for tax auditors. \n\nKey focus areas:\n1. Matching total expenditure with P&L.\n2. Correct classification of exempt vs taxable supply expenditures.\n3. Identification of expenses from composition dealers.\n4. Verification of RCM payments.\n5. Cross-checking with GSTR-2B data.",
-    "tags": ["Income Tax", "Tax Audit", "Clause 44"]
+    "tags": ["Income Tax", "Tax Audit", "Clause 44"],
+    "status": "published",
+    "sourceName": "",
+    "sourceUrl": "",
+    "disclaimer": "This is a general knowledge update. Please verify applicable law, notification, circular and facts before taking action."
   },
   {
     "id": 7,
@@ -60,6 +45,10 @@
     "category": "ROC / MCA",
     "summary": "Navigating the V3 portal? Here's how to resolve common DSC and Login errors.",
     "content": "The transition to the MCA V3 portal has seen several technical hurdles. \n\nCommon solutions:\n- Clear browser cache and use Incognito mode for fresh logins.\n- Ensure EmSigner is updated to the latest version.\n- If 'User ID already exists' error appears, use the 'Forgot Password' link to reset the profile link.\n- DSC association should be done through the 'Update DSC' utility specifically in the V3 dashboard.",
-    "tags": ["MCA", "V3 Portal", "ROC"]
+    "tags": ["MCA", "V3 Portal", "ROC"],
+    "status": "published",
+    "sourceName": "",
+    "sourceUrl": "",
+    "disclaimer": "This is a general knowledge update. Please verify applicable law, notification, circular and facts before taking action."
   }
 ]
