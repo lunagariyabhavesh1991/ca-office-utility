@@ -239,5 +239,81 @@
     "sourceUrl": "https://www.incometaxindia.gov.in/",
     "verifiedBy": "B K Lunagariya & Co.",
     "disclaimer": "This is a general knowledge update. Please verify applicable law, notification, circular and facts before taking action."
+  },
+  {
+    "id": "tds-compliance-guide-april-2026",
+    "title": "April 2026 TDS Compliance Guide: New Sections, Due Dates and Forms",
+    "date": "2026-04-28",
+    "category": "TDS",
+    "summary": "A practical reference guide for TDS compliance starting April 2026, featuring new section references under the Income-tax Act, 2025.",
+    "content": "Starting from 01 April 2026, TDS compliance is governed by the Income-tax Act, 2025 for transactions where the triggering event (payment or credit) occurs on or after this date. While the core TDS rates and monetary thresholds have been largely retained from previous years, the section references and reporting forms have been updated for modern compliance. Broadly, Salary TDS is now covered under Section 392, while most Non-salary TDS items are consolidated under Section 393. Professionals are advised to update their systems and reference charts to reflect these structural changes.",
+    "readTime": "6 min read",
+    "highlight": "Practical Guide",
+    "heroColor": "linear-gradient(135deg, #1e293b, #334155)",
+    "whoShouldRead": [
+      "Tax Professionals",
+      "Accountants",
+      "Finance Managers",
+      "Chartered Accountants",
+      "Payroll Teams"
+    ],
+    "quickPoints": [
+      "Common TDS Compliance Snapshot for FY 2026-27.",
+      "Salary TDS: Now under Section 392 of Income-tax Act, 2025.",
+      "Non-salary TDS: Broadly covered under Section 393.",
+      "Rates and thresholds are largely retained from the previous Act.",
+      "New Act references should be used for all transactions from 01-04-2026."
+    ],
+    "tableData": {
+      "headers": [
+        "Nature of Payment",
+        "Trigger Event",
+        "New Act Reference",
+        "Rate / Threshold",
+        "Deposit Due Date",
+        "Forms"
+      ],
+      "rows": [
+        ["Salaries", "Payment", "Section 392", "Slab Rates / Nil", "7th of next month", "Form 24Q"],
+        ["Contractors", "Payment/Credit", "Section 393", "1% (Ind/HUF) / 2% (Other); ₹30k single / ₹1L aggregate", "7th of next month", "Form 26Q"],
+        ["Professional / Technical Fees", "Payment/Credit", "Section 393", "10% (2% for certain types); ₹30k", "7th of next month", "Form 26Q"],
+        ["Rent", "Payment/Credit", "Section 393", "10% (2% for Plant/Mach); ₹2.4L", "7th of next month", "Form 26Q"],
+        ["Dividend", "Payment/Credit", "Section 393", "10%; ₹5,000", "7th of next month", "Form 26Q"],
+        ["Interest on Securities", "Payment/Credit", "Section 393", "10%", "7th of next month", "Form 26Q"],
+        ["Insurance Commission", "Payment/Credit", "Section 393", "5%; ₹15,000", "7th of next month", "Form 26Q"],
+        ["Commission or Brokerage", "Payment/Credit", "Section 393", "5%; ₹15,000", "7th of next month", "Form 26Q"],
+        ["Transfer of Immovable Property", "Payment/Credit", "Section 393", "1%; ₹50 Lakh", "30 days from end of month", "Form 26QB"],
+        ["Rent by Individual / HUF", "Payment", "Section 393", "5%; ₹50,000 per month", "30 days from end of month", "Form 26QC"],
+        ["Virtual Digital Assets", "Payment/Credit", "Section 393", "1%; ₹10,000 / ₹50,000", "30 days from end of month", "Form 26QE"]
+      ]
+    },
+    "actionPoints": [
+      "Update ERP and accounting masters with Section 392 and 393.",
+      "Review vendor contracts for any changes in TDS rates or thresholds.",
+      "Ensure April 2026 payments use the new Act references.",
+      "Verify PAN/Aadhaar of payees to avoid higher deduction rates.",
+      "Reconcile April TDS with the simplified practical reference table."
+    ],
+    "faqs": [
+      {
+        "question": "Is this a complete TDS rate chart?",
+        "answer": "No, this is a Common TDS Compliance Snapshot for practical reference. It covers the most frequent transactions but is not exhaustive."
+      },
+      {
+        "question": "What happens if I use the old section 194C in April 2026?",
+        "answer": "Using old section references for transactions after 01-04-2026 may lead to processing delays or validation errors in TDS returns."
+      }
+    ],
+    "tags": [
+      "TDS",
+      "Income-tax Act 2025",
+      "Compliance 2026",
+      "Section 392",
+      "Section 393",
+      "Tax Forms"
+    ],
+    "status": "draft",
+    "disclaimer": "This is a general knowledge update. Please verify applicable law, notification, circular and facts before taking action.",
+    "caution": "This table is a simplified practical reference. Exact section table item, threshold, rate, payee status, form and challan requirement should be verified before deduction/payment/return filing."
   }
 ]
