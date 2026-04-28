@@ -270,6 +270,7 @@
         /* Comments Section */
         .comments-section { margin-top: 48px; border-top: 1px solid var(--border-medium); padding-top: 40px; }
         .comments-title { font-size: 1.25rem; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+        .comments-title svg { width: 24px; height: 24px; flex-shrink: 0; }
         .comment-form { background: var(--bg-card); padding: 24px; border-radius: 16px; margin-bottom: 32px; border: 1px solid var(--border-medium); }
         .form-row { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 16px; }
         .form-input { 
@@ -659,20 +660,22 @@
                 const q = query(
                     collection(db, "post_comments"), 
                     where("postId", "==", postId), 
-                    where("status", "==", "approved"),
-                    orderBy("createdAt", "desc")
+                    where("status", "==", "approved")
+                    // Removed orderBy to avoid indexing error, sorting in memory instead
                 );
                 const snap = await getDocs(q);
-                totalLabel.innerText = snap.size;
-                countLabel.innerText = snap.size > 0 ? `${snap.size} Comments` : 'Comment';
+                const docs = snap.docs.map(d => ({id: d.id, ...d.data()}))
+                    .sort((a, b) => (b.createdAt?.toMillis() || 0) - (a.createdAt?.toMillis() || 0));
 
-                if (snap.empty) {
+                totalLabel.innerText = docs.length;
+                countLabel.innerText = docs.length > 0 ? `${docs.length} Comments` : 'Comment';
+
+                if (docs.length === 0) {
                     list.innerHTML = '<p style="color: var(--text-tertiary); text-align: center;">No comments yet. Be the first to start the discussion!</p>';
                     return;
                 }
 
-                list.innerHTML = snap.docs.map(d => {
-                    const data = d.data();
+                list.innerHTML = docs.map(data => {
                     return `
                         <div class="comment-item">
                             <div class="comment-header">
