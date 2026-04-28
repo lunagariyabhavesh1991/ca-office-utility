@@ -43,79 +43,86 @@
   },
   {
     "id": "tds-rate-chart-2026",
-    "title": "TDS Rate Chart: Financial Year 2026-27",
+    "title": "TDS Rates in FY 2026-27: What Changed and What Stayed Same?",
     "date": "2026-04-28",
     "category": "TDS",
-    "summary": "Quick reference for applicable TDS rates on common payments for FY 2026-27.",
-    "content": "Staying updated with TDS rates is crucial for accurate compliance. The current financial year maintains most rates from the previous year, but professionals should check for specific threshold changes.",
+    "summary": "Key insights into the transition of TDS rates and section references under the new Income-tax Act, 2025.",
+    "content": "For the financial year 2026-27, while the core TDS rates and monetary thresholds have largely been retained from the previous years, there is a significant structural change. The Income-tax Act, 2025 has replaced the old numbering system for transactions happening on or after 01 April 2026. Specifically, salary-related TDS is now covered under Section 392, and non-salary TDS items are covered under Section 393. This is not a complete chart but a mapping guide for common payments.",
     "tags": [
       "TDS",
-      "Income Tax",
+      "Income Tax Act 2025",
       "Compliance",
       "Tax Rates"
     ],
     "status": "published",
-    "readTime": "5 min read",
-    "highlight": "Practical Guide",
-    "heroColor": "linear-gradient(135deg, #10b981, #059669)",
+    "readTime": "4 min read",
+    "highlight": "Transition Guide",
+    "heroColor": "linear-gradient(135deg, #0f172a, #334155)",
     "whoShouldRead": [
       "Finance Managers",
-      "Audit Assistants",
-      "Tax Practitioners"
+      "Payroll Teams",
+      "Tax Practitioners",
+      "Chartered Accountants"
     ],
     "quickPoints": [
-      "Updated rates for FY 2026-27.",
-      "Threshold limits for various sections included.",
-      "Higher rates applicable if PAN is not available."
+      "Core rates and thresholds are largely retained.",
+      "Section references have changed to Act 2025 numbers.",
+      "Salary TDS: Now under Section 392.",
+      "Non-salary TDS: Now under Section 393.",
+      "Old sections (194C, 194J, etc.) apply only for pre-April 2026 transactions."
     ],
     "tableData": {
       "headers": [
-        "Section",
-        "Nature of Payment",
-        "TDS Rate (%)",
-        "Threshold (₹)"
+        "Old Act Reference",
+        "New Act Reference",
+        "Payment Type",
+        "Practical Note"
       ],
       "rows": [
         [
-          "192",
+          "Section 192",
+          "Section 392",
           "Salary",
-          "Slab Rate",
-          "As per slab"
+          "Retains slab-based deduction logic."
         ],
         [
-          "194C",
-          "Contractors (Indiv/HUF)",
-          "1%",
-          "30,000 / 1,00,000"
+          "Section 194C",
+          "Section 393",
+          "Contractors",
+          "Rates (1%/2%) and thresholds largely similar."
         ],
         [
-          "194J",
+          "Section 194J",
+          "Section 393",
           "Professional Fees",
-          "10%",
-          "30,000"
+          "Verify sub-category for 2% vs 10% rates."
         ],
         [
-          "194H",
-          "Commission/Brokerage",
-          "5%",
-          "15,000"
+          "Section 194H",
+          "Section 393",
+          "Commission",
+          "Threshold of ₹15,000 generally remains same."
         ]
       ]
     },
     "actionPoints": [
-      "Review vendor contracts for correct section application.",
-      "Verify PAN status to avoid higher TDS rates.",
-      "Ensure timely deposit of TDS to avoid interest."
+      "Update accounting software to reflect new Section 392 and 393.",
+      "Ensure staff are aware of the mapping from old to new sections.",
+      "Verify the date of payment/credit to determine the applicable Act."
     ],
     "faqs": [
       {
-        "question": "What if the deductee does not provide a PAN?",
-        "answer": "If PAN is not provided, TDS is generally deducted at 20% or the applicable rate, whichever is higher."
+        "question": "Are the old sections like 194C completely gone?",
+        "answer": "They remain in the Income-tax Act, 1961 and apply to transactions where the credit or payment happened on or before 31 March 2026."
+      },
+      {
+        "question": "Has the TDS rate for professional fees changed?",
+        "answer": "Under the Income-tax Act, 2025, the rates for professional and technical services are largely retained as they were in the previous year."
       }
     ],
-    "sourceName": "Income Tax Notification",
+    "sourceName": "Income Tax Department Transition FAQs",
     "sourceUrl": "https://incometaxindia.gov.in",
-    "disclaimer": "This is a consolidated summary. Please refer to the official Finance Act for exact legal text."
+    "disclaimer": "This is a general knowledge update. Please verify applicable law, notification, circular and facts before taking action."
   },
   {
     "id": 2,
