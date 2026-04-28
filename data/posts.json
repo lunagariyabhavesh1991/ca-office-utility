@@ -5,50 +5,232 @@
     "date": "2026-04-27",
     "category": "Income Tax",
     "summary": "Cash deposits of ₹50 lakh or more in current accounts may be reported under SFT by banks.",
-    "content": "Under SFT reporting, cash deposits aggregating to ₹50 lakh or more in one or more current accounts of a person during a financial year may be reportable by banks or co-operative banks. Taxpayers and professionals should review high-value cash transactions and maintain proper source documentation. This is a general knowledge update. Please verify applicable law, notification, circular and facts before taking action.",
-    "tags": ["Income Tax", "SFT", "Cash Deposit", "High Value Transaction"],
+    "content": "Under SFT reporting, cash deposits aggregating to ₹50 lakh or more in one or more current accounts of a person during a financial year may be reportable by banks or co-operative banks. Taxpayers and professionals should review high-value cash transactions and maintain proper source documentation.",
+    "tags": [
+      "Income Tax",
+      "SFT",
+      "Cash Deposit",
+      "High Value Transaction"
+    ],
     "status": "published",
+    "readTime": "3 min read",
+    "highlight": "Important",
+    "heroColor": "linear-gradient(135deg, #3b82f6, #1d4ed8)",
+    "whoShouldRead": [
+      "Chartered Accountants",
+      "Tax Consultants",
+      "Business Owners"
+    ],
+    "quickPoints": [
+      "Aggregate deposits of ₹50 lakh+ in current accounts.",
+      "Reportable by Banks and Co-operative Banks.",
+      "Requires proper source documentation for high-value entries."
+    ],
+    "actionPoints": [
+      "Identify clients with high-value cash transactions.",
+      "Collect and verify bank statements.",
+      "Verify source of funds with documentary evidence."
+    ],
+    "faqs": [
+      {
+        "question": "Is it applicable to savings accounts?",
+        "answer": "For savings accounts, the limit is generally ₹10 lakh or more for cash deposits/withdrawals."
+      }
+    ],
     "sourceName": "Income Tax Act",
     "sourceUrl": "https://incometaxindia.gov.in",
     "disclaimer": "This is a general knowledge update. Please verify applicable law, notification, circular and facts before taking action."
   },
   {
-    "id": 4,
+    "id": "tds-rate-chart-2026",
+    "title": "TDS Rate Chart: Financial Year 2026-27",
+    "date": "2026-04-28",
+    "category": "TDS",
+    "summary": "Quick reference for applicable TDS rates on common payments for FY 2026-27.",
+    "content": "Staying updated with TDS rates is crucial for accurate compliance. The current financial year maintains most rates from the previous year, but professionals should check for specific threshold changes.",
+    "tags": [
+      "TDS",
+      "Income Tax",
+      "Compliance",
+      "Tax Rates"
+    ],
+    "status": "published",
+    "readTime": "5 min read",
+    "highlight": "Practical Guide",
+    "heroColor": "linear-gradient(135deg, #10b981, #059669)",
+    "whoShouldRead": [
+      "Finance Managers",
+      "Audit Assistants",
+      "Tax Practitioners"
+    ],
+    "quickPoints": [
+      "Updated rates for FY 2026-27.",
+      "Threshold limits for various sections included.",
+      "Higher rates applicable if PAN is not available."
+    ],
+    "tableData": {
+      "headers": [
+        "Section",
+        "Nature of Payment",
+        "TDS Rate (%)",
+        "Threshold (₹)"
+      ],
+      "rows": [
+        [
+          "192",
+          "Salary",
+          "Slab Rate",
+          "As per slab"
+        ],
+        [
+          "194C",
+          "Contractors (Indiv/HUF)",
+          "1%",
+          "30,000 / 1,00,000"
+        ],
+        [
+          "194J",
+          "Professional Fees",
+          "10%",
+          "30,000"
+        ],
+        [
+          "194H",
+          "Commission/Brokerage",
+          "5%",
+          "15,000"
+        ]
+      ]
+    },
+    "actionPoints": [
+      "Review vendor contracts for correct section application.",
+      "Verify PAN status to avoid higher TDS rates.",
+      "Ensure timely deposit of TDS to avoid interest."
+    ],
+    "faqs": [
+      {
+        "question": "What if the deductee does not provide a PAN?",
+        "answer": "If PAN is not provided, TDS is generally deducted at 20% or the applicable rate, whichever is higher."
+      }
+    ],
+    "sourceName": "Income Tax Notification",
+    "sourceUrl": "https://incometaxindia.gov.in",
+    "disclaimer": "This is a consolidated summary. Please refer to the official Finance Act for exact legal text."
+  },
+  {
+    "id": 2,
     "title": "ROC: Annual Filing General Timelines",
     "date": "2026-04-25",
     "category": "ROC / MCA",
     "summary": "Annual filing (AOC-4 and MGT-7) generally follows specific timelines post-AGM.",
     "content": "Annual filing deadlines for financial statements (AOC-4) and annual returns (MGT-7) are generally within 30 and 60 days of the Annual General Meeting (AGM) respectively. Professionals should monitor official Ministry of Corporate Affairs (MCA) circulars for specific extensions or changes to the filing calendar for the current financial year. Early filing is recommended to avoid technical issues on the portal.",
-    "tags": ["ROC", "MCA", "Annual Filing", "Compliance"],
+    "tags": [
+      "ROC",
+      "MCA",
+      "Annual Filing",
+      "Compliance"
+    ],
     "status": "published",
     "sourceName": "MCA General Guidelines",
     "sourceUrl": "https://www.mca.gov.in",
     "disclaimer": "This is a general knowledge update. Please verify applicable law, notification, circular and facts before taking action."
   },
   {
-    "id": 6,
+    "id": 3,
     "title": "Tax Audit: Clause 44 Reconciliation Points",
     "date": "2026-04-23",
     "category": "Income Tax",
     "summary": "Clause 44 requires reconciliation of GST expenditure details during tax audits.",
     "content": "Clause 44 reporting requires detailed reconciliation of GST-related expenditures. Key focus areas typically include:\n1. Matching total expenditure with P&L statements.\n2. Correct classification of exempt vs taxable supply expenditures.\n3. Identification of expenses from composition dealers.\n4. Verification of RCM (Reverse Charge Mechanism) payments.\n5. Cross-checking with available GSTR-2B data.\n\nProfessionals should ensure that clients maintain robust records to support these classifications.",
-    "tags": ["Income Tax", "Tax Audit", "Clause 44", "GST"],
+    "tags": [
+      "Income Tax",
+      "Tax Audit",
+      "Clause 44",
+      "GST"
+    ],
     "status": "published",
     "sourceName": "Tax Audit Standards",
     "sourceUrl": "https://www.icai.org",
     "disclaimer": "This is a general knowledge update. Please verify applicable law, notification, circular and facts before taking action."
   },
   {
-    "id": 7,
-    "title": "MCA Portal: Troubleshooting DSC & Login Issues",
-    "date": "2026-04-22",
-    "category": "ROC / MCA",
-    "summary": "Technical hurdles on the MCA portal can often be resolved with browser and software updates.",
-    "content": "Common technical issues during MCA filings can often be resolved through procedural steps:\n- Clearing browser cache and using updated browsers for fresh logins.\n- Ensuring EmSigner or relevant utility software is updated to the recommended version.\n- Following official technical manuals for DSC association and profile updates.\n- Utilizing the 'Forgot Password' or 'Reset Profile' utilities if account accessibility issues persist.\n\nUsers should refer to the official MCA helpdesk for persistent technical errors.",
-    "tags": ["MCA", "Technical Support", "DSC", "ROC"],
+    "id": "tds-payment-april-2026-income-tax-act-2025",
+    "title": "TDS Payment for April 2026: Which Act, Section and Due Date?",
+    "date": "2026-04-30",
+    "category": "TDS",
+    "summary": "A simple guide for April 2026 TDS compliance during transition from Income-tax Act, 1961 to Income-tax Act, 2025.",
+    "content": "From 01 April 2026, the Income-tax Act, 2025 applies for transactions where the TDS triggering event occurs on or after that date. The key test is the date of payment or credit, whichever is earlier. If payment or credit happened on or before 31 March 2026, the old Income-tax Act, 1961 continues to apply. If payment or credit happens on or after 01 April 2026, TDS should be considered under the Income-tax Act, 2025. Salary TDS is covered under section 392 and non-salary TDS is covered under section 393. For April 2026 TDS, the general due date for non-government deductors with challan remains 7 May 2026.",
+    "readTime": "3 min read",
+    "highlight": "April 2026 TDS Guide",
+    "heroColor": "orange",
+    "whoShouldRead": [
+      "CA firms",
+      "TDS return preparers",
+      "Accountants",
+      "Payroll teams",
+      "Business owners",
+      "Finance department staff"
+    ],
+    "quickPoints": [
+      "Check payment or credit date, whichever is earlier.",
+      "On or before 31-03-2026: old Income-tax Act, 1961 applies.",
+      "On or after 01-04-2026: Income-tax Act, 2025 applies.",
+      "Salary TDS: Section 392 under the new Act.",
+      "Non-salary TDS: Section 393 under the new Act.",
+      "April 2026 TDS general deposit due date: 07-05-2026 for non-government deductors with challan."
+    ],
+    "tableData": {
+      "headers": ["Situation", "Applicable Law", "Practical Action"],
+      "rows": [
+        ["Payment / credit on or before 31-03-2026", "Income-tax Act, 1961", "Use old Act section reference such as 194C / 194J / 194H as applicable"],
+        ["Payment / credit on or after 01-04-2026", "Income-tax Act, 2025", "Use new Act reference such as section 392 for salary and section 393 for non-salary payments"],
+        ["TDS deducted in April 2026 by non-government deductor", "Income-tax Act, 2025", "Generally deposit by 07-05-2026 where challan payment applies"],
+        ["TDS deducted in March 2026", "Income-tax Act, 1961", "March 2026 TDS due date for non-government deductors is generally 30-04-2026"],
+        ["Wrong old section quoted for post 01-04-2026 transaction", "Income-tax Act, 2025", "May cause processing / validation issue and correction may be required"]
+      ]
+    },
+    "actionPoints": [
+      "Update TDS software, payroll software and accounting masters for new section references.",
+      "Train staff to check payment / credit date before selecting section.",
+      "Use section 392 for salary TDS under the new Act.",
+      "Use section 393 for non-salary TDS under the new Act.",
+      "Do not blindly use old section numbers for April 2026 onwards transactions.",
+      "Keep separate working for March 2026 and April 2026 TDS during transition."
+    ],
+    "faqs": [
+      {
+        "question": "For April 2026 contractor payment, should we use old section 194C?",
+        "answer": "For transactions where payment or credit happens on or after 01 April 2026, new Act section reference should be used. Contractor-type payments may fall under section 393 table item as applicable."
+      },
+      {
+        "question": "If bill was credited on 31 March 2026 but payment is made in April 2026, which Act applies?",
+        "answer": "Generally, if the earlier event of credit occurred on or before 31 March 2026, TDS obligation is governed by the Income-tax Act, 1961."
+      },
+      {
+        "question": "What is the due date for April 2026 TDS payment?",
+        "answer": "For non-government deductors with challan, the general due date remains 7th of the next month, so April 2026 TDS is generally due on 07 May 2026."
+      },
+      {
+        "question": "Are TDS rates changed under the new Act?",
+        "answer": "As per the transition FAQ, rates and monetary thresholds are largely retained; the major change is simplified presentation and new section references."
+      },
+      {
+        "question": "Should ERP and payroll systems be updated?",
+        "answer": "Yes. Systems should be updated for new section numbering, terminology and reporting requirements under the Income-tax Act, 2025."
+      }
+    ],
+    "tags": [
+      "TDS",
+      "Income-tax Act 2025",
+      "April 2026",
+      "Section 392",
+      "Section 393",
+      "TDS Due Date"
+    ],
     "status": "published",
-    "sourceName": "MCA Helpdesk Manual",
-    "sourceUrl": "https://www.mca.gov.in",
+    "sourceName": "Income Tax Department FAQs on Interplay and Transition",
+    "sourceUrl": "https://www.incometaxindia.gov.in/",
+    "verifiedBy": "B K Lunagariya & Co.",
     "disclaimer": "This is a general knowledge update. Please verify applicable law, notification, circular and facts before taking action."
   }
 ]
