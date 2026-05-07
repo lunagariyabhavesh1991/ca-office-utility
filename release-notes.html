@@ -401,13 +401,76 @@
         <div class="container">
             <div class="releases-list">
                 
-                <!-- Current Release v1.1.2 -->
+                <!-- Latest Release v1.1.3 -->
                 <div class="release-card latest">
                     <div class="release-header">
                         <div>
                             <div class="release-version-area">
-                                <span class="release-version">v1.1.2</span>
+                                <span class="release-version">v1.1.3</span>
                                 <span class="release-tag latest-tag">Latest</span>
+                            </div>
+                            <div class="release-date">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                May 07, 2026
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="release-description">The Granular Financial Tracking Update. This version introduces detailed Sales Breakup (Domestic & Export) and dedicated Other Income tracking within the CMA / DPR Builder suite.</p>
+
+                    <div class="release-section-title">CMA / DPR Builder Updates</div>
+                    <ul class="changelog-list">
+                        <li>
+                            <span class="cl-icon new">
+                                <svg viewBox="0 0 24 24" fill="currentColor" style="width:12px;height:12px;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            </span>
+                            <span><strong>Sales Breakup Tracking</strong> &mdash; Support for Domestic Sales and Export Sales with automatic Total Revenue calculation and historical ratio analysis.</span>
+                        </li>
+                        <li>
+                            <span class="cl-icon new">
+                                <svg viewBox="0 0 24 24" fill="currentColor" style="width:12px;height:12px;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            </span>
+                            <span><strong>Other Income Engine</strong> &mdash; Dedicated tracking for non-operating income with independent growth projections, separate from turnover-based ratios.</span>
+                        </li>
+                        <li>
+                            <span class="cl-icon improved">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:12px;height:12px;"><polyline points="18 15 12 9 6 15"/></svg>
+                            </span>
+                            <span><strong>5-Row Operating Statement</strong> &mdash; Enhanced PDF and Word reports now include a detailed breakdown: Domestic, Export, Total Revenue, Other Income, and Total Income.</span>
+                        </li>
+                    </ul>
+
+                    <div class="release-section-title">Maintenance & UI</div>
+                    <ul class="changelog-list">
+                        <li>
+                            <span class="cl-icon improved">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:12px;height:12px;"><polyline points="18 15 12 9 6 15"/></svg>
+                            </span>
+                            <span><strong>Real-time UI Sync</strong> &mdash; Implemented dynamic synchronization between breakup inputs and total revenue fields in the audited data entry panel.</span>
+                        </li>
+                        <li>
+                            <span class="cl-icon fixed">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:12px;height:12px;"><polyline points="20 6 9 17 4 12"/></svg>
+                            </span>
+                            <span>Temporarily disabled BankXtract Pro module to finalize core integration (v1.1.4 upcoming).</span>
+                        </li>
+                    </ul>
+
+                    <div class="release-assets">
+                        <a href="https://github.com/marutitechsolutions/ca-office-utility/releases/download/v1.1.3/CA_Office_Utility_Windows_v1.1.3.zip" class="asset-btn primary download-trigger" id="latest-win-dl" data-version="v1.1.3">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            <span id="latest-win-text">Download Windows ZIP (v1.1.3)</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Previous Release v1.1.2 -->
+                <div class="release-card">
+                    <div class="release-header">
+                        <div>
+                            <div class="release-version-area">
+                                <span class="release-version">v1.1.2</span>
+                                <span class="release-tag stable-tag">Stable</span>
                             </div>
                             <div class="release-date">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -455,18 +518,15 @@
                             <span>Fixed a UI issue in CMA / DPR Project Finance tab where the 'Copy from Req.' button overlapped the input label.</span>
                         </li>
                     </ul>
-                            <span>Patched glassmorphism rendering bugs on older browsers.</span>
-                        </li>
-                    </ul>
 
                     <div class="release-assets">
-                        <a href="https://github.com/marutitechsolutions/ca-office-utility/releases/download/v1.1.2/CA_Office_Utility_Windows_v1.1.2_build_20260427_112206.zip" class="asset-btn primary download-trigger" id="latest-win-dl" data-version="v1.1.2">
+                        <a href="https://github.com/marutitechsolutions/ca-office-utility/releases/download/v1.1.2/CA_Office_Utility_Windows_v1.1.2_build_20260427_112206.zip" class="asset-btn primary download-trigger" id="latest-win-dl-v112" data-version="v1.1.2">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                            <span id="latest-win-text">Download Windows ZIP (v1.1.2)</span>
+                            <span>Download Windows ZIP (v1.1.2)</span>
                         </a>
-                        <a href="https://github.com/marutitechsolutions/ca-office-utility/releases/download/v1.1.2/CA_Office_Utility_Mac_v1.1.2.zip" class="asset-btn secondary download-trigger" id="latest-mac-dl" data-version="v1.1.2">
+                        <a href="https://github.com/marutitechsolutions/ca-office-utility/releases/download/v1.1.2/CA_Office_Utility_Mac_v1.1.2.zip" class="asset-btn secondary download-trigger" id="latest-mac-dl-v112" data-version="v1.1.2">
                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                             <span id="latest-mac-text">Download for macOS</span>
+                             <span>Download for macOS</span>
                         </a>
                     </div>
                 </div>
